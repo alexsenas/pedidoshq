@@ -455,7 +455,18 @@ const SUPA_URL='https://tjpqlwegdkodfblsrpre.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcHFsd2VnZGtvZGZibHNycHJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODgzMDcsImV4cCI6MjA5MTg2NDMwN30.DIVUeKjJVgTazvV5s2fqKcJCTLJf2HpEgjrBWyu-vSo';
 const SH={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
 
-async function dbGet(){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...SH,'Prefer':'return=representation'}});if(!r.ok)throw new Error();return r.json();}
+async function dbGet(){
+  let all=[], from=0, size=1000;
+  while(true){
+    const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc&limit=${size}&offset=${from}`,{headers:{...SH,'Prefer':'count=exact','Range-Unit':'items','Range':`${from}-${from+size-1}`}});
+    if(!r.ok)throw new Error();
+    const d=await r.json();
+    all=[...all,...d];
+    if(d.length<size)break;
+    from+=size;
+  }
+  return all;
+}
 async function dbInsert(o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...SH,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
 async function dbUpdate(id,o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...SH,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
 async function dbDelete(id){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:SH});if(!r.ok)throw new Error();}
@@ -508,7 +519,7 @@ async function importarShopify(){
   let importados=0,pagina=1,hasMore=true,allOrders=[];
   try{
     while(hasMore){
-      const params=new URLSearchParams({store,secret,start,end,page:pagina});
+      const params=new URLSearchParams({store,start,end,page:pagina});
       const url=`/api/shopify?${params}`;
       const resp=await fetch(url);
       if(!resp.ok)throw new Error('Erro API Shopify: '+resp.status);
