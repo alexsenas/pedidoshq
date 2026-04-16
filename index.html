@@ -508,8 +508,9 @@ async function importarShopify(){
   let importados=0,pagina=1,hasMore=true,allOrders=[];
   try{
     while(hasMore){
-      const url=`https://corsproxy.io/?https://${store}/admin/api/2024-01/orders.json?status=any&created_at_min=${start}T00:00:00-03:00&created_at_max=${end}T23:59:59-03:00&limit=250&page=${pagina}&fields=id,name,created_at,total_price,customer,fulfillments,fulfillment_status`;
-      const resp=await fetch(url,{headers:{'X-Shopify-Access-Token':secret,'Content-Type':'application/json'}});
+      const params=new URLSearchParams({store,secret,start,end,page:pagina});
+      const url=`/api/shopify?${params}`;
+      const resp=await fetch(url);
       if(!resp.ok)throw new Error('Erro API Shopify: '+resp.status);
       const data=await resp.json();
       const orders=data.orders||[];
