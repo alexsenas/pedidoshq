@@ -12,7 +12,11 @@ export default async function handler(req, res) {
     const resp = await fetch(url, {
       headers: { 'X-Shopify-Access-Token': secret, 'Content-Type': 'application/json' }
     });
-    if (!resp.ok) { res.status(resp.status).json({ error: 'Shopify error: ' + resp.status }); return; }
+    if (!resp.ok) {
+      const txt = await resp.text();
+      res.status(resp.status).json({ error: 'Shopify: ' + resp.status, detail: txt });
+      return;
+    }
     const data = await resp.json();
     res.status(200).json(data);
   } catch (e) {
