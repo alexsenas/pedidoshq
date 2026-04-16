@@ -8,23 +8,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --black:#0A0A0A;
-  --black2:#111111;
-  --black3:#1A1A1A;
-  --gray1:#2C2C2C;
-  --gray2:#444444;
-  --gray3:#888888;
-  --gray4:#BBBBBB;
-  --gray5:#E5E5E5;
-  --white:#F7F7F7;
-  --white2:#EFEFEF;
-  --surface:#FFFFFF;
-  --bg:#F2F2F2;
-  --border:#E0E0E0;
-  --border2:#C8C8C8;
-  --tx:#0A0A0A;
-  --tx2:#555;
-  --tx3:#999;
+  --black:#0A0A0A;--black2:#111;--gray1:#2C2C2C;--gray2:#444;--gray3:#888;--gray4:#BBB;--gray5:#E5E5E5;
+  --surface:#FFF;--bg:#F2F2F2;--border:#E0E0E0;--border2:#C8C8C8;
+  --tx:#0A0A0A;--tx2:#555;--tx3:#999;
   --green:#16A34A;--green-lt:#DCFCE7;--green-dk:#14532D;
   --amber:#B45309;--amber-lt:#FEF3C7;--amber-dk:#78350F;
   --red:#DC2626;--red-lt:#FEE2E2;--red-dk:#7F1D1D;
@@ -33,38 +19,26 @@
 }
 body{font-family:'Syne',sans-serif;font-size:13px;background:var(--bg);color:var(--tx);}
 .shell{display:flex;min-height:100vh;}
-
-/* SIDEBAR */
 .sidebar{width:220px;flex-shrink:0;background:var(--black);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:50;}
 .sb-brand{padding:1.25rem 1.1rem 1rem;border-bottom:1px solid rgba(255,255,255,0.08);}
-.sb-escudo{width:36px;height:36px;margin-bottom:10px;}
-.sb-escudo svg{width:36px;height:36px;}
-.sb-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:#FFFFFF;line-height:1;}
+.sb-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:#FFF;line-height:1;margin-top:8px;}
 .sb-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px;}
 .sb-section{padding:14px 1.1rem 4px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.25);font-weight:600;}
-.sb-item{display:flex;align-items:center;gap:9px;padding:9px 1.1rem;cursor:pointer;color:rgba(255,255,255,0.5);font-size:12px;font-weight:500;border-left:2px solid transparent;transition:all .15s;letter-spacing:.01em;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 1.1rem;cursor:pointer;color:rgba(255,255,255,0.5);font-size:12px;font-weight:500;border-left:2px solid transparent;transition:all .15s;}
 .sb-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85);}
-.sb-item.active{color:#FFFFFF;background:rgba(255,255,255,0.10);border-left-color:#FFFFFF;}
-.sb-item svg{flex-shrink:0;opacity:.6;}
-.sb-item.active svg{opacity:1;}
+.sb-item.active{color:#FFF;background:rgba(255,255,255,0.10);border-left-color:#FFF;}
+.sb-item svg{flex-shrink:0;opacity:.6;}.sb-item.active svg{opacity:1;}
 .sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:99px;font-weight:600;}
 .sb-footer{margin-top:auto;padding:1rem 1.1rem;border-top:1px solid rgba(255,255,255,0.08);}
 .sb-user{display:flex;align-items:center;gap:8px;}
 .sb-avatar{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
-.sb-user-name{font-size:11px;color:rgba(255,255,255,0.5);}
-
-/* MAIN */
-.main{flex:1;margin-left:220px;padding:2rem;}
+.sb-user-name{font-size:11px;color:rgba(255,255,255,0.6);font-weight:600;}
+.main{flex:1;margin-left:220px;padding:2rem;max-width:1300px;}
 .page{display:none;}.page.active{display:block;}
-
-/* TOPBAR */
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:10px;}
-.topbar-left{}
 .page-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--tx3);font-weight:600;margin-bottom:4px;}
 .page-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.03em;color:var(--tx);line-height:1;}
-.topbar-right{display:flex;align-items:center;gap:8px;padding-top:6px;}
-
-/* BUTTONS */
+.topbar-right{display:flex;align-items:center;gap:8px;padding-top:6px;flex-wrap:wrap;}
 .btn{padding:8px 16px;font-size:12px;font-weight:600;border:1.5px solid var(--border2);border-radius:var(--radius);background:transparent;color:var(--tx);cursor:pointer;transition:all .15s;font-family:'Syne',sans-serif;letter-spacing:.02em;}
 .btn:hover{background:var(--black);color:#fff;border-color:var(--black);}
 .btn:active{transform:scale(.98);}
@@ -72,143 +46,101 @@ body{font-family:'Syne',sans-serif;font-size:13px;background:var(--bg);color:var
 .btn.prim:hover{background:var(--gray1);}
 .btn.warn{background:var(--amber-lt);color:var(--amber-dk);border-color:var(--amber);}
 .btn.danger{background:var(--red-lt);color:var(--red-dk);border-color:var(--red);}
+.btn.success{background:var(--green-lt);color:var(--green-dk);border-color:var(--green);}
 .btn.sm{padding:4px 10px;font-size:11px;}
 .btn.ghost{background:transparent;border-color:var(--border);color:var(--tx2);}
-.btn.ghost:hover{background:var(--surface);border-color:var(--border2);}
-
-/* STATS */
+.btn.ghost:hover{background:var(--surface);}
+.btn:disabled{opacity:.5;cursor:not-allowed;}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1.5rem;}
 .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;}
 .stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:6px;font-weight:600;}
 .stat-n{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.02em;line-height:1;}
-.c-black{color:var(--black);}
-.c-green{color:var(--green);}
-.c-red{color:var(--red);}
-.c-amber{color:var(--amber);}
-.c-blue{color:var(--blue);}
-
-/* ALERT BANNER */
+.c-black{color:var(--black);}.c-green{color:var(--green);}.c-red{color:var(--red);}.c-amber{color:var(--amber);}.c-blue{color:var(--blue);}
 .alert-banner{background:var(--red-lt);border:1px solid #FECACA;border-radius:var(--radius);padding:10px 14px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--red-dk);font-weight:500;}
-
-/* TABS */
 .tabs{display:flex;gap:4px;margin-bottom:1rem;flex-wrap:wrap;}
 .tab{padding:5px 14px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1.5px solid var(--border);border-radius:99px;cursor:pointer;color:var(--tx3);background:transparent;transition:all .15s;}
 .tab:hover{border-color:var(--border2);color:var(--tx);}
 .tab.active{background:var(--black);color:#fff;border-color:var(--black);}
-
-/* CONTROLS */
 .controls{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
 .controls input,.controls select{padding:8px 11px;font-size:12px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--tx);outline:none;font-family:'Syne',sans-serif;}
 .controls input:focus,.controls select:focus{border-color:var(--black);}
 .controls input{flex:1;min-width:180px;}
-
-/* TABLE */
 .tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 table{width:100%;border-collapse:collapse;table-layout:fixed;}
-th{background:var(--black);padding:10px 12px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.6);border-bottom:none;font-weight:600;font-family:'Syne',sans-serif;}
+th{background:var(--black);padding:10px 12px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.6);font-weight:600;font-family:'Syne',sans-serif;}
 td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--tx);overflow:hidden;text-overflow:ellipsis;vertical-align:middle;font-size:12px;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:var(--bg);}
 tr.row-alert td{background:#FFF5F5;}
 tr.row-alert:hover td{background:#FEE2E2;}
 .empty{text-align:center;padding:3rem;color:var(--tx3);font-size:12px;}
-
-/* BADGES */
 .badge{display:inline-block;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap;text-transform:uppercase;}
 .b-entregue{background:var(--green-lt);color:var(--green-dk);}
 .b-transito{background:var(--blue-lt);color:var(--blue);}
 .b-reenviado{background:var(--amber-lt);color:var(--amber-dk);}
 .b-atencao,.b-devolvido,.b-extraviado{background:var(--red-lt);color:var(--red-dk);}
 .b-aguardando{background:var(--gray5);color:var(--gray2);}
-.alert-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.03em;background:var(--red-lt);color:var(--red);text-transform:uppercase;}
-
-/* RASTREIO */
+.alert-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;background:var(--red-lt);color:var(--red);text-transform:uppercase;}
 .mono{font-family:'DM Mono',monospace;font-size:11px;}
 .track-block{display:flex;flex-direction:column;gap:1px;}
 .track-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
 .track-active{font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);}
 .track-old{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);text-decoration:line-through;}
-
-/* CARDS */
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
 .card-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx2);margin-bottom:12px;}
-
-/* BAR CHART */
 .barchart{display:flex;align-items:flex-end;gap:8px;height:80px;margin-bottom:6px;}
 .bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
 .bar{width:100%;border-radius:3px 3px 0 0;min-height:4px;}
 .bar-val{font-size:10px;font-weight:700;color:var(--tx);}
-
-/* PROGRESS */
 .prog-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
 .prog-lbl{font-size:11px;color:var(--tx2);width:75px;flex-shrink:0;font-weight:500;}
 .prog-bg{flex:1;height:6px;background:var(--gray5);border-radius:99px;overflow:hidden;}
 .prog-fill{height:100%;border-radius:99px;background:var(--black);}
 .prog-val{font-size:11px;font-weight:700;width:32px;text-align:right;flex-shrink:0;}
-
-/* INTEGRATION CARDS */
-.int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;}
-.int-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
-.int-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--tx);}
+.int-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;margin-bottom:12px;}
+.int-card h3{font-size:14px;font-weight:700;margin-bottom:4px;}
 .int-card p{font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px;}
 .int-status{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;margin-bottom:8px;}
 .status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.dot-ok{background:var(--green);}
-.dot-warn{background:var(--amber);}
-.dot-off{background:#ccc;}
-
-/* MODAL */
+.dot-ok{background:var(--green);}.dot-warn{background:var(--amber);}.dot-off{background:#ccc;}
+.field{margin-bottom:10px;}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;font-size:13px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--tx);outline:none;font-family:'Syne',sans-serif;}
+.field input:focus,.field select:focus{border-color:var(--black);}
+.field textarea{resize:vertical;min-height:60px;}
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;}
 .modal-bg.open{display:flex;}
 .modal{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);padding:1.5rem;width:100%;max-width:500px;margin:0 1rem;max-height:88vh;overflow-y:auto;}
 .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
-.modal h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:var(--tx);}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.field{margin-bottom:10px;}
-.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px;}
-.field input,.field select,.field textarea{width:100%;padding:9px 11px;font-size:13px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--tx);outline:none;font-family:'Syne',sans-serif;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--black);}
-.field textarea{resize:vertical;min-height:60px;}
 .mfooter{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
 .reenvio-box{background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:var(--radius);padding:12px;margin:8px 0;}
 .reenvio-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-dk);margin-bottom:8px;}
-
-/* DB INDICATOR */
 .db-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--green-lt);color:var(--green-dk);}
 .db-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
-
-/* TOAST */
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--black);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;letter-spacing:.02em;}
+.pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:99px;}
+.pill.ok{background:var(--green-lt);color:var(--green-dk);}
+.pill.off{background:var(--gray5);color:var(--tx3);}
+.pill.warn{background:var(--amber-lt);color:var(--amber-dk);}
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--black);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
 .toast.show{opacity:1;}
-
-/* DIVIDER */
-.section-divider{height:1px;background:var(--border);margin:1.5rem 0;}
-
-@media(max-width:768px){
-  .sidebar{width:100%;height:auto;position:relative;}
-  .main{margin-left:0;}
-  th:nth-child(n+5),td:nth-child(n+5){display:none;}
-}
+.secure-note{background:#F0FDF4;border:1px solid #BBF7D0;border-radius:var(--radius);padding:10px 14px;font-size:11px;color:var(--green-dk);margin-bottom:12px;display:flex;align-items:flex-start;gap:6px;}
 </style>
 </head>
 <body>
 <div class="shell">
-
-<!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sb-brand">
-    <!-- Escudo Corinthians simplificado em SVG -->
-    <div class="sb-escudo">
-      <svg viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M18 2L34 10V24C34 32 26 38.5 18 40C10 38.5 2 32 2 24V10L18 2Z" fill="white" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
-        <path d="M18 6L30 13V24C30 30 24.5 35 18 36.5C11.5 35 6 30 6 24V13L18 6Z" fill="#0A0A0A"/>
-        <text x="18" y="27" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="13" fill="white" letter-spacing="1">SCT</text>
-      </svg>
-    </div>
+    <svg width="36" height="42" viewBox="0 0 36 42" fill="none">
+      <path d="M18 2L34 10V24C34 32 26 38.5 18 40C10 38.5 2 32 2 24V10L18 2Z" fill="white" fill-opacity="0.15" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+      <text x="18" y="19" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="7" fill="white" fill-opacity="0.9" letter-spacing="1">SPORT</text>
+      <text x="18" y="27" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="7" fill="white" fill-opacity="0.9" letter-spacing="1">CLUB</text>
+      <text x="18" y="34" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="6" fill="white" fill-opacity="0.5" letter-spacing="0.5">CORINTHIANS</text>
+    </svg>
     <div class="sb-name">Coringão Shop</div>
     <div class="sb-sub">Controle de Pedidos</div>
   </div>
-
   <div class="sb-item active" onclick="nav('dash',this)">
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
     Dashboard
@@ -217,7 +149,7 @@ tr.row-alert:hover td{background:#FEE2E2;}
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
     Todos os Pedidos
   </div>
-  <div class="sb-item" onclick="nav('atencao',this)" id="sb-atencao">
+  <div class="sb-item" onclick="nav('atencao',this)">
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>
     Atenção
     <span class="sb-badge" id="badge-count">0</span>
@@ -226,13 +158,11 @@ tr.row-alert:hover td{background:#FEE2E2;}
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h10M9 5l3 3-3 3"/><path d="M5 4a6 6 0 100 8"/></svg>
     Reenviados
   </div>
-
   <div class="sb-section">Configurações</div>
   <div class="sb-item" onclick="nav('integracao',this)">
     <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="8" r="2"/><circle cx="12" cy="8" r="2"/><path d="M6 8h4"/></svg>
     Integrações
   </div>
-
   <div class="sb-footer">
     <div class="sb-user">
       <div class="sb-avatar">CS</div>
@@ -241,18 +171,18 @@ tr.row-alert:hover td{background:#FEE2E2;}
   </div>
 </nav>
 
-<!-- MAIN -->
 <main class="main">
 
   <!-- DASHBOARD -->
   <div class="page active" id="pg-dash">
     <div class="topbar">
-      <div class="topbar-left">
+      <div>
         <div class="page-eyebrow">Olá, Coringão Shop</div>
         <div class="page-title">Dashboard</div>
       </div>
       <div class="topbar-right">
-        <div class="db-pill"><div class="db-dot"></div>Banco conectado</div>
+        <div class="db-pill"><div class="db-dot"></div>Supabase ok</div>
+        <div class="pill off" id="pill-shopify-dash">Shopify —</div>
         <button class="btn prim" onclick="abrirModal()">+ Novo Pedido</button>
       </div>
     </div>
@@ -260,7 +190,7 @@ tr.row-alert:hover td{background:#FEE2E2;}
     <div class="stats" id="dash-stats"></div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:1.25rem;">
       <div class="card">
-        <div class="card-title">Pedidos por mês</div>
+        <div class="card-title">Pedidos por mês — 2026</div>
         <div class="barchart" id="barchart"></div>
         <div style="display:flex;gap:8px;" id="barlabels"></div>
       </div>
@@ -273,10 +203,8 @@ tr.row-alert:hover td{background:#FEE2E2;}
       <div class="card-title">Pedidos com atenção — recentes</div>
       <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
         <thead><tr>
-          <th style="width:85px">Pedido</th>
-          <th>Cliente</th>
-          <th style="width:190px">Motivo</th>
-          <th style="width:90px">Ação</th>
+          <th style="width:85px">Pedido</th><th>Cliente</th>
+          <th style="width:200px">Motivo</th><th style="width:90px">Ação</th>
         </tr></thead>
         <tbody id="dash-atencao"></tbody>
       </table>
@@ -286,11 +214,12 @@ tr.row-alert:hover td{background:#FEE2E2;}
   <!-- TODOS OS PEDIDOS -->
   <div class="page" id="pg-pedidos">
     <div class="topbar">
-      <div class="topbar-left">
+      <div>
         <div class="page-eyebrow">Coringão Shop</div>
         <div class="page-title">Todos os Pedidos</div>
       </div>
       <div class="topbar-right">
+        <button class="btn success" onclick="nav('integracao',null)">↓ Importar Shopify</button>
         <button class="btn prim" onclick="abrirModal()">+ Novo Pedido</button>
       </div>
     </div>
@@ -335,7 +264,7 @@ tr.row-alert:hover td{background:#FEE2E2;}
   <!-- ATENÇÃO -->
   <div class="page" id="pg-atencao">
     <div class="topbar">
-      <div class="topbar-left">
+      <div>
         <div class="page-eyebrow">Requer ação imediata</div>
         <div class="page-title">Pedidos com Atenção</div>
       </div>
@@ -356,21 +285,21 @@ tr.row-alert:hover td{background:#FEE2E2;}
         <thead><tr>
           <th style="width:85px">Pedido</th>
           <th style="width:130px">Cliente</th>
-          <th style="width:185px">Motivo do alerta</th>
-          <th>Rastreio ativo</th>
+          <th style="width:185px">Motivo</th>
+          <th>Rastreio</th>
           <th style="width:70px">Data</th>
           <th style="width:115px">Ações</th>
         </tr></thead>
         <tbody id="atencao-tbody"></tbody>
       </table>
-      <div class="empty" id="atencao-empty" style="display:none">Nenhum pedido com atenção no momento.</div>
+      <div class="empty" id="atencao-empty" style="display:none">Nenhum pedido com atenção.</div>
     </div>
   </div>
 
   <!-- REENVIADOS -->
   <div class="page" id="pg-reenviados">
     <div class="topbar">
-      <div class="topbar-left">
+      <div>
         <div class="page-eyebrow">Dois códigos ativos</div>
         <div class="page-title">Pedidos Reenviados</div>
       </div>
@@ -395,39 +324,77 @@ tr.row-alert:hover td{background:#FEE2E2;}
   <!-- INTEGRAÇÕES -->
   <div class="page" id="pg-integracao">
     <div class="topbar">
-      <div class="topbar-left">
+      <div>
         <div class="page-eyebrow">Conexões externas</div>
         <div class="page-title">Integrações</div>
       </div>
     </div>
-    <div class="int-grid">
-      <div class="int-card">
-        <h3>Supabase</h3>
-        <div class="int-status"><div class="status-dot dot-ok"></div><span style="color:var(--green)">Conectado e funcionando</span></div>
-        <p>Seus pedidos estão salvos na nuvem em tempo real. Os dados não se perdem ao fechar o navegador.</p>
+
+    <!-- SHOPIFY -->
+    <div class="int-card" style="border:1.5px solid var(--black);">
+      <h3>Shopify — Importar pedidos</h3>
+      <div class="int-status"><div class="status-dot" id="shopify-dot" style="background:#ccc"></div><span id="shopify-status-txt" style="color:var(--tx3)">Configure abaixo para conectar</span></div>
+      <div class="secure-note">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2l5 3v4c0 3-2.5 5.5-5 6-2.5-.5-5-3-5-6V5l5-3z"/><path d="M6 8l1.5 1.5L10 6"/></svg>
+        Suas credenciais ficam salvas apenas neste navegador — nunca expostas publicamente.
       </div>
-      <div class="int-card">
-        <h3>Shopify</h3>
-        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Próxima fase</span></div>
-        <p>Vai importar pedidos e rastreios automaticamente. Quando você atualizar o código na Shopify, o sistema detecta o reenvio sozinho.</p>
+      <div class="grid2" style="margin-bottom:10px;">
+        <div class="field" style="margin:0">
+          <label>Domínio da loja</label>
+          <input id="cfg-store" placeholder="nbdxec-gx.myshopify.com" style="font-family:'DM Mono',monospace;font-size:12px;"/>
+        </div>
+        <div class="field" style="margin:0">
+          <label>Client Secret (shpss_...)</label>
+          <input id="cfg-secret" type="password" placeholder="shpss_..." style="font-family:'DM Mono',monospace;font-size:12px;"/>
+        </div>
       </div>
-      <div class="int-card">
-        <h3>17Track</h3>
-        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Próxima fase</span></div>
-        <p>Rastreio automático de Correios, Jadlog e Loggi. Alertas de Receita Federal, autenticidade da marca e importação não autorizada.</p>
+      <div class="grid2" style="margin-bottom:12px;">
+        <div class="field" style="margin:0">
+          <label>Data início</label>
+          <input type="date" id="imp-start" value="2026-01-01"/>
+        </div>
+        <div class="field" style="margin:0">
+          <label>Data fim</label>
+          <input type="date" id="imp-end"/>
+        </div>
       </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <button class="btn prim" id="btn-salvar-cfg" onclick="salvarConfig()">Salvar credenciais</button>
+        <button class="btn success" id="btn-importar" onclick="importarShopify()" disabled>Importar pedidos de 2026</button>
+        <span id="import-msg" style="font-size:12px;color:var(--tx2);"></span>
+      </div>
+      <div id="import-progress-wrap" style="display:none;margin-top:12px;">
+        <div style="font-size:11px;color:var(--tx2);margin-bottom:4px;" id="import-progress-label">Importando...</div>
+        <div style="background:var(--gray5);border-radius:99px;height:6px;overflow:hidden;">
+          <div id="import-progress-bar" style="height:100%;background:var(--black);border-radius:99px;width:0%;transition:width .3s;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUPABASE -->
+    <div class="int-card">
+      <h3>Supabase</h3>
+      <div class="int-status"><div class="status-dot dot-ok"></div><span style="color:var(--green)">Conectado e funcionando</span></div>
+      <p>Pedidos salvos na nuvem em tempo real. Dados não se perdem ao fechar o navegador.</p>
+    </div>
+
+    <!-- 17TRACK -->
+    <div class="int-card">
+      <h3>17Track — Rastreio automático</h3>
+      <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Próxima fase</span></div>
+      <p>Rastreio automático de Correios, Jadlog e Loggi. Alertas automáticos de Receita Federal, autenticidade da marca e importação não autorizada.</p>
     </div>
   </div>
 
 </main>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL PEDIDO -->
 <div class="modal-bg" id="modalBg">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="modal-header">
       <h3 id="modal-titulo">Novo Pedido</h3>
-      <button class="btn ghost sm" onclick="fecharModal()">✕ Fechar</button>
+      <button class="btn ghost sm" onclick="fecharModal()">✕</button>
     </div>
     <div class="grid2">
       <div class="field"><label>Nº do pedido</label><input id="f-num" placeholder="#10100"/></div>
@@ -460,19 +427,19 @@ tr.row-alert:hover td{background:#FEE2E2;}
         <option>Extraviado / roubado</option>
       </select>
     </div>
-    <div class="field"><label>Código de rastreio 1 (original)</label><input id="f-rastreio1" placeholder="Ex: BR123456789BR" style="font-family:'DM Mono',monospace;"/></div>
+    <div class="field"><label>Código de rastreio 1</label><input id="f-rastreio1" placeholder="Ex: BR123456789BR" style="font-family:'DM Mono',monospace;"/></div>
     <div id="campo-reenvio" style="display:none" class="reenvio-box">
       <div class="reenvio-title">Código 2 — Reenvio</div>
       <div class="field" style="margin-bottom:0">
-        <label>Código de rastreio 2 (novo)</label>
+        <label>Código de rastreio 2</label>
         <input id="f-rastreio2" placeholder="Ex: BR987654321BR" style="font-family:'DM Mono',monospace;"/>
       </div>
-      <div style="font-size:11px;color:var(--amber-dk);margin-top:6px;font-weight:500;">Ambos os códigos ficam ativos até um ser entregue.</div>
+      <div style="font-size:11px;color:var(--amber-dk);margin-top:6px;font-weight:500;">Ambos ficam ativos até um ser entregue.</div>
     </div>
     <div class="grid2">
       <div class="field"><label>Valor (R$)</label><input id="f-valor" type="number" step="0.01" placeholder="0.00"/></div>
     </div>
-    <div class="field"><label>Observações</label><textarea id="f-obs" placeholder="Anotações internas sobre este pedido..."></textarea></div>
+    <div class="field"><label>Observações</label><textarea id="f-obs" placeholder="Anotações internas..."></textarea></div>
     <div class="mfooter">
       <button class="btn ghost" onclick="fecharModal()">Cancelar</button>
       <button class="btn prim" onclick="salvar()">Salvar Pedido</button>
@@ -483,34 +450,132 @@ tr.row-alert:hover td{background:#FEE2E2;}
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── SUPABASE ──────────────────────────────
 const SUPA_URL='https://tjpqlwegdkodfblsrpre.supabase.co';
 const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcHFsd2VnZGtvZGZibHNycHJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODgzMDcsImV4cCI6MjA5MTg2NDMwN30.DIVUeKjJVgTazvV5s2fqKcJCTLJf2HpEgjrBWyu-vSo';
-const H={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+const SH={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
 
-async function dbGet(){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...H,'Prefer':'return=representation'}});if(!r.ok)throw new Error();return r.json();}
-async function dbInsert(o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
-async function dbUpdate(id,o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
-async function dbDelete(id){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:H});if(!r.ok)throw new Error();}
+async function dbGet(){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...SH,'Prefer':'return=representation'}});if(!r.ok)throw new Error();return r.json();}
+async function dbInsert(o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...SH,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
+async function dbUpdate(id,o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...SH,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
+async function dbDelete(id){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:SH});if(!r.ok)throw new Error();}
+async function dbUpsert(o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...SH,'Prefer':'resolution=merge-duplicates,return=representation','on_conflict':'pedido'},body:JSON.stringify(o)});if(!r.ok)throw new Error('Supabase: '+r.status);const d=await r.json();return d[0];}
 
-const MESES=['Jan','Fev','Mar','Abr'];
+// ─── CONFIG LOCAL ──────────────────────────
+function salvarConfig(){
+  const store=document.getElementById('cfg-store').value.trim();
+  const secret=document.getElementById('cfg-secret').value.trim();
+  if(!store||!secret){toast('Preencha o domínio e o secret.',true);return;}
+  localStorage.setItem('shp_store',store);
+  localStorage.setItem('shp_secret',secret);
+  atualizarStatusShopify(true);
+  document.getElementById('btn-importar').disabled=false;
+  toast('Credenciais salvas com segurança no navegador.');
+}
+function carregarConfig(){
+  const store=localStorage.getItem('shp_store')||'';
+  const secret=localStorage.getItem('shp_secret')||'';
+  if(store)document.getElementById('cfg-store').value=store;
+  if(secret)document.getElementById('cfg-secret').value=secret;
+  if(store&&secret){atualizarStatusShopify(true);document.getElementById('btn-importar').disabled=false;}
+}
+function atualizarStatusShopify(ok){
+  const dot=document.getElementById('shopify-dot');
+  const txt=document.getElementById('shopify-status-txt');
+  const pill=document.getElementById('pill-shopify-dash');
+  if(ok){
+    dot.style.background='var(--green)';
+    txt.style.color='var(--green)';txt.textContent='Credenciais salvas — pronto para importar';
+    pill.className='pill ok';pill.textContent='Shopify ok';
+  }
+}
+
+// ─── IMPORTAR SHOPIFY ──────────────────────
+async function importarShopify(){
+  const store=localStorage.getItem('shp_store');
+  const secret=localStorage.getItem('shp_secret');
+  if(!store||!secret){toast('Configure as credenciais primeiro.',true);return;}
+  const start=document.getElementById('imp-start').value;
+  const end=document.getElementById('imp-end').value;
+  if(!start||!end){toast('Selecione o período.',true);return;}
+  const btn=document.getElementById('btn-importar');
+  const msg=document.getElementById('import-msg');
+  const wrap=document.getElementById('import-progress-wrap');
+  const bar=document.getElementById('import-progress-bar');
+  const lbl=document.getElementById('import-progress-label');
+  btn.disabled=true;wrap.style.display='block';
+  msg.textContent='Conectando...';bar.style.width='5%';
+  let importados=0,pagina=1,hasMore=true,allOrders=[];
+  try{
+    while(hasMore){
+      const url=`https://corsproxy.io/?https://${store}/admin/api/2024-01/orders.json?status=any&created_at_min=${start}T00:00:00-03:00&created_at_max=${end}T23:59:59-03:00&limit=250&page=${pagina}&fields=id,name,created_at,total_price,customer,fulfillments,fulfillment_status`;
+      const resp=await fetch(url,{headers:{'X-Shopify-Access-Token':secret,'Content-Type':'application/json'}});
+      if(!resp.ok)throw new Error('Erro API Shopify: '+resp.status);
+      const data=await resp.json();
+      const orders=data.orders||[];
+      allOrders=[...allOrders,...orders];
+      hasMore=orders.length===250;
+      pagina++;
+      bar.style.width=Math.min(50,pagina*8)+'%';
+      msg.textContent=`Buscando... ${allOrders.length} pedidos`;
+      await new Promise(r=>setTimeout(r,400));
+    }
+    lbl.textContent=`Salvando ${allOrders.length} pedidos...`;
+    for(let i=0;i<allOrders.length;i++){
+      const o=allOrders[i];
+      try{
+        const fulfill=o.fulfillments&&o.fulfillments[0];
+        const rastreio=fulfill&&fulfill.tracking_numbers&&fulfill.tracking_numbers[0]||'';
+        const transp=fulfill&&fulfill.tracking_company||'Correios';
+        const nome=o.customer?`${o.customer.first_name||''} ${o.customer.last_name||''}`.trim()||'Cliente':'Cliente';
+        const fs=o.fulfillment_status;
+        const status=fs==='fulfilled'?'entregue':fs==='partial'?'transito':fs?'transito':'aguardando';
+        const dataStr=o.created_at?o.created_at.split('T')[0]:'';
+        const mes=dataStr?parseInt(dataStr.split('-')[1])-1:0;
+        await dbUpsert({pedido:o.name,cliente:nome,status,transp,rastreio1:rastreio,rastreio2:'',motivo:'',data:dataStr,valor:parseFloat(o.total_price||0),mes:mes>=0?mes:0,obs:''});
+        importados++;
+      }catch(e){console.warn('Erro pedido',o.name,e);}
+      const pct=50+Math.round((i/allOrders.length)*48);
+      bar.style.width=pct+'%';
+      lbl.textContent=`Salvando ${i+1} de ${allOrders.length}...`;
+      if(i%5===0)await new Promise(r=>setTimeout(r,30));
+    }
+    bar.style.width='100%';
+    lbl.textContent=`Concluído! ${importados} pedidos importados.`;
+    msg.textContent='';
+    atualizarStatusShopify(true);
+    toast(`${importados} pedidos importados com sucesso!`);
+    await carregarPedidos();
+  }catch(e){
+    msg.textContent='Erro: '+e.message;
+    lbl.textContent='Falha. Verifique as credenciais.';
+    toast('Erro ao importar. Verifique o domínio e o secret.',true);
+    console.error(e);
+  }finally{
+    btn.disabled=false;
+  }
+}
+
+// ─── STATE ─────────────────────────────────
+const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
 const LABEL={entregue:'Entregue',transito:'Em Trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
 const STATUS_ATENCAO=['atencao','devolvido','extraviado'];
 const MOTIVOS=['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
-
 let pedidos=[],editId=null,mesSel='todos';
 
-function getMes(d){if(!d)return 0;const m=parseInt(d.split('-')[1])-1;return m>=0&&m<4?m:0;}
+function getMes(d){if(!d)return 0;const m=parseInt(d.split('-')[1])-1;return m>=0?m:0;}
 function fdata(d){if(!d)return'—';const[y,m,dia]=d.split('-');return`${dia}/${m}`;}
 function fval(v){return'R$ '+parseFloat(v||0).toFixed(2).replace('.',',');}
-function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'#DC2626':'#0A0A0A';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'#DC2626':'#0A0A0A';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 async function carregarPedidos(){
   try{pedidos=await dbGet();renderDash();renderTabs();renderPedidos();}
-  catch(e){toast('Erro ao conectar com o banco.',true);}
+  catch(e){toast('Erro ao carregar pedidos.',true);}
 }
 
 function renderDash(){
   const tot=pedidos.length,ent=pedidos.filter(p=>p.status==='entregue').length,tra=pedidos.filter(p=>p.status==='transito').length,rei=pedidos.filter(p=>p.status==='reenviado').length,atc=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).length,taxa=tot?Math.round(ent/tot*100):0;
+  const fatur=pedidos.reduce((a,p)=>a+parseFloat(p.valor||0),0);
   document.getElementById('dash-stats').innerHTML=`
     <div class="stat"><div class="stat-lbl">Total</div><div class="stat-n c-black">${tot}</div></div>
     <div class="stat"><div class="stat-lbl">Entregues</div><div class="stat-n c-green">${ent}</div></div>
@@ -518,14 +583,16 @@ function renderDash(){
     <div class="stat"><div class="stat-lbl">Reenviados</div><div class="stat-n c-amber">${rei}</div></div>
     <div class="stat"><div class="stat-lbl">Com atenção</div><div class="stat-n c-red">${atc}</div></div>
     <div class="stat"><div class="stat-lbl">Taxa entrega</div><div class="stat-n c-green">${taxa}%</div></div>
+    <div class="stat"><div class="stat-lbl">Faturamento</div><div class="stat-n c-black" style="font-size:20px">R$${Math.round(fatur).toLocaleString('pt-BR')}</div></div>
   `;
   document.getElementById('badge-count').textContent=atc;
   const banner=document.getElementById('alert-banner-dash');
-  banner.innerHTML=atc>0?`<div class="alert-banner"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg><span><strong>${atc} pedidos</strong> precisam de atenção —</span><button class="btn sm" onclick="nav('atencao',null)" style="margin-left:8px;background:var(--red);color:#fff;border-color:var(--red)">Ver agora</button></div>`:'';
-  const qtdM=[0,1,2,3].map(m=>pedidos.filter(p=>getMes(p.data)===m).length);
+  banner.innerHTML=atc>0?`<div class="alert-banner"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg><strong>${atc} pedidos</strong> precisam de atenção —<button class="btn sm" onclick="nav('atencao',null)" style="margin-left:8px;background:var(--red);color:#fff;border-color:var(--red)">Ver agora</button></div>`:'';
+  const mesesUniq=[...new Set(pedidos.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
+  const qtdM=mesesUniq.map(m=>pedidos.filter(p=>getMes(p.data)===m).length);
   const mx=Math.max(...qtdM,1);
-  document.getElementById('barchart').innerHTML=qtdM.map((c,i)=>`<div class="bar-col"><div class="bar-val">${c}</div><div class="bar" style="height:${Math.round(c/mx*60)+4}px;background:${i%2===0?'#0A0A0A':'#C8C8C8'}"></div></div>`).join('');
-  document.getElementById('barlabels').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--tx3);font-weight:600;letter-spacing:.06em;text-transform:uppercase">${m}</div>`).join('');
+  document.getElementById('barchart').innerHTML=mesesUniq.map((m,i)=>`<div class="bar-col"><div class="bar-val">${qtdM[i]}</div><div class="bar" style="height:${Math.round(qtdM[i]/mx*60)+4}px;background:${i%2===0?'#0A0A0A':'#C8C8C8'}"></div></div>`).join('');
+  document.getElementById('barlabels').innerHTML=mesesUniq.map(m=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--tx3);font-weight:600;text-transform:uppercase">${MESES[m]}</div>`).join('');
   const mc={};pedidos.filter(p=>p.motivo).forEach(p=>{mc[p.motivo]=(mc[p.motivo]||0)+1;});
   const mots=Object.entries(mc).sort((a,b)=>b[1]-a[1]);const mx2=mots.length?mots[0][1]:1;
   document.getElementById('motivo-prog').innerHTML=mots.length?mots.map(([m,c])=>`<div class="prog-row"><div class="prog-lbl" title="${m}">${m}</div><div class="prog-bg"><div class="prog-fill" style="width:${Math.round(c/mx2*100)}%;background:var(--red)"></div></div><div class="prog-val c-red">${c}</div></div>`).join(''):'<div style="font-size:12px;color:var(--tx3)">Nenhum alerta ativo.</div>';
@@ -534,7 +601,8 @@ function renderDash(){
 }
 
 function renderTabs(){
-  document.getElementById('month-tabs').innerHTML=`<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+MESES.map((m,i)=>`<div class="tab ${mesSel===i?'active':''}" onclick="setMes(${i})">${m}</div>`).join('');
+  const mesesUniq=[...new Set(pedidos.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
+  document.getElementById('month-tabs').innerHTML=`<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+mesesUniq.map(m=>`<div class="tab ${mesSel===m?'active':''}" onclick="setMes(${m})">${MESES[m]}</div>`).join('');
 }
 function setMes(m){mesSel=m;renderTabs();renderPedidos();}
 
@@ -562,7 +630,7 @@ function renderAtencao(){
   let f=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status));
   if(fm)f=f.filter(p=>p.motivo===fm);
   const tbody=document.getElementById('atencao-tbody'),empty=document.getElementById('atencao-empty'),banner=document.getElementById('atencao-banner');
-  banner.innerHTML=f.length?`<div class="alert-banner" style="margin-bottom:1rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação imediata</div>`:'';
+  banner.innerHTML=f.length?`<div class="alert-banner" style="margin-bottom:1rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação</div>`:'';
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   tbody.innerHTML=f.map(p=>`<tr class="row-alert"><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td><span class="alert-pill">${p.motivo}</span></td><td>${p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`}</td><td style="color:var(--tx2)">${fdata(p.data)}</td><td><div style="display:flex;gap:3px;flex-wrap:wrap"><button class="btn sm ghost" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm warn" onclick="marcarReenviado('${p.id}')">Reenviar</button></div></td></tr>`).join('');
@@ -583,12 +651,12 @@ async function marcarReenviado(id){
   catch(e){toast('Erro ao atualizar.',true);}
 }
 async function marcarEntregue(id){
-  if(!confirm('Confirmar entrega deste pedido?'))return;
+  if(!confirm('Confirmar entrega?'))return;
   try{const u=await dbUpdate(id,{status:'entregue'});const i=pedidos.findIndex(p=>p.id===id);if(i>=0)pedidos[i]=u;renderReenviados();renderDash();toast('Pedido marcado como entregue.');}
   catch(e){toast('Erro ao atualizar.',true);}
 }
 async function excluir(id){
-  if(!confirm('Remover este pedido permanentemente?'))return;
+  if(!confirm('Remover este pedido?'))return;
   try{await dbDelete(id);pedidos=pedidos.filter(p=>p.id!==id);renderPedidos();renderDash();toast('Pedido removido.');}
   catch(e){toast('Erro ao remover.',true);}
 }
@@ -634,7 +702,7 @@ async function salvar(){
     if(editId){const u=await dbUpdate(editId,obj);const i=pedidos.findIndex(p=>p.id===editId);if(i>=0)pedidos[i]=u;toast('Pedido atualizado.');}
     else{const n=await dbInsert(obj);pedidos.unshift(n);toast('Pedido cadastrado.');}
     fecharModal();renderPedidos();renderDash();renderAtencao();renderReenviados();
-  }catch(e){toast('Erro ao salvar pedido.',true);}
+  }catch(e){toast('Erro ao salvar.',true);}
 }
 
 function nav(page,el){
@@ -648,6 +716,9 @@ function nav(page,el){
   if(page==='reenviados')renderReenviados();
 }
 
+// ─── INIT ──────────────────────────────────
+document.getElementById('imp-end').value=new Date().toISOString().split('T')[0];
+carregarConfig();
 carregarPedidos();
 </script>
 </body>
