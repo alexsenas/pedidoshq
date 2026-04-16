@@ -1,17 +1,18 @@
 export default async function handler(req, res) {
+  // Responde imediatamente para evitar timeout
+  res.status(200).json({ ok: true });
+
+  if (req.method !== 'POST') return;
+
   const SUPA_URL = process.env.SUPA_URL;
   const SUPA_KEY = process.env.SUPA_KEY;
   const SH = { 'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY };
-
-  if (req.method === 'GET') { res.status(200).json({ ok: true, msg: 'webhook ativo' }); return; }
-  if (req.method !== 'POST') { res.status(200).end(); return; }
 
   try {
     const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
     const packages = body?.data?.accepted || body?.data || [];
     const list = Array.isArray(packages) ? packages : [packages];
 
-    let atualizados = 0;
     for (const pkg of list) {
       const trackingNo = pkg.number || pkg.tracking_number;
       if (!trackingNo) continue;
@@ -24,31 +25,28 @@ export default async function handler(req, res) {
 
       if (stage === 'Delivered') {
         novoStatus = 'entregue';
-      } else if (stage === 'InTransit' || stage === 'PickedUp' || stage === 'InfoReceived') {
+      } else if (['InTransit','PickedUp','InfoReceived','Received'].includes(stage)) {
         novoStatus = 'transito';
-      } else if (stage === 'Undelivered' || stage === 'Exception' || stage === 'Alert') {
-        if (lastEvent.includes('receita') || lastEvent.includes('fiscal') || lastEvent.includes('aduaneiro') || lastEvent.includes('aduana') || lastEvent.includes('alfandega') || lastEvent.includes('alfândega')) {
+      } else if (['Undelivered','Exception','Alert','NotDelivered'].includes(stage)) {
+        if (lastEvent.includes('receita') || lastEvent.includes('aduaneiro') || lastEvent.includes('alfand')) {
           novoStatus = 'atencao'; motivo = 'Retido — Receita Federal';
         } else if (lastEvent.includes('autenticidade') || lastEvent.includes('marca') || lastEvent.includes('falsif')) {
           novoStatus = 'atencao'; motivo = 'Autenticidade da marca';
-        } else if (lastEvent.includes('nao autorizada') || lastEvent.includes('não autorizada') || lastEvent.includes('importacao bloqueada')) {
+        } else if (lastEvent.includes('nao autorizada') || lastEvent.includes('não autorizada')) {
           novoStatus = 'atencao'; motivo = 'Importação não autorizada';
         } else if (lastEvent.includes('devolvido') || lastEvent.includes('retorno ao remetente')) {
           novoStatus = 'devolvido'; motivo = 'Devolvido ao remetente';
-        } else if (lastEvent.includes('extravi') || lastEvent.includes('roubado') || lastEvent.includes('perdido')) {
+        } else if (lastEvent.includes('extravi') || lastEvent.includes('roubado')) {
           novoStatus = 'extraviado'; motivo = 'Extraviado / roubado';
-        } else if (lastEvent.includes('pagamento') || lastEvent.includes('taxa') || lastEvent.includes('tributo')) {
+        } else if (lastEvent.includes('pagamento') || lastEvent.includes('taxa')) {
           novoStatus = 'atencao'; motivo = 'Aguardando pagamento de taxas';
         } else {
           novoStatus = 'atencao'; motivo = lastEvent.slice(0, 60) || 'Verificar rastreio';
         }
-      } else if (stage === 'Expired' || stage === 'NotFound') {
-        novoStatus = 'aguardando';
       }
 
       if (!novoStatus) continue;
 
-      // Busca por rastreio1 ou rastreio2
       const [r1, r2] = await Promise.all([
         fetch(`${SUPA_URL}/rest/v1/pedidos?rastreio1=eq.${encodeURIComponent(trackingNo)}&select=id,status`, { headers: SH }),
         fetch(`${SUPA_URL}/rest/v1/pedidos?rastreio2=eq.${encodeURIComponent(trackingNo)}&select=id,status`, { headers: SH })
@@ -64,13 +62,9 @@ export default async function handler(req, res) {
         await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${pedido.id}`, {
           method: 'PATCH', headers: SH, body: JSON.stringify(updateObj)
         });
-        atualizados++;
       }
     }
-
-    res.status(200).json({ ok: true, atualizados });
   } catch (e) {
-    console.error(e);
-    res.status(200).json({ ok: true, error: e.message });
+    console.error('17track webhook error:', e.message);
   }
 }
