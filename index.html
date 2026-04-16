@@ -225,8 +225,8 @@ tr.row-alert:hover td{background:#FEE2E2;}
     </div>
     <div class="tabs" id="month-tabs"></div>
     <div class="controls">
-      <input type="text" id="busca" placeholder="Buscar pedido, cliente ou rastreio..." oninput="renderPedidos()"/>
-      <select id="fStatus" onchange="renderPedidos()">
+      <input type="text" id="busca" placeholder="Buscar pedido, cliente ou rastreio..." oninput="paginaAtual=0;renderPedidos()"/>
+      <select id="fStatus" onchange="paginaAtual=0;renderPedidos()">
         <option value="">Todos os status</option>
         <option value="entregue">Entregue</option>
         <option value="transito">Em trânsito</option>
@@ -236,7 +236,7 @@ tr.row-alert:hover td{background:#FEE2E2;}
         <option value="extraviado">Extraviado</option>
         <option value="aguardando">Aguardando</option>
       </select>
-      <select id="fTransp" onchange="renderPedidos()">
+      <select id="fTransp" onchange="paginaAtual=0;renderPedidos()">
         <option value="">Todas transportadoras</option>
         <option value="Correios">Correios</option>
         <option value="Jadlog">Jadlog</option>
@@ -573,7 +573,8 @@ const MESES=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','
 const LABEL={entregue:'Entregue',transito:'Em Trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
 const STATUS_ATENCAO=['atencao','devolvido','extraviado'];
 const MOTIVOS=['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
-let pedidos=[],editId=null,mesSel='todos';
+let pedidos=[],editId=null,mesSel='todos',paginaAtual=0;
+function irPagina(p){paginaAtual=p;renderPedidos();}
 
 function getMes(d){if(!d)return 0;const m=parseInt(d.split('-')[1])-1;return m>=0?m:0;}
 function fdata(d){if(!d)return'—';const[y,m,dia]=d.split('-');return`${dia}/${m}`;}
@@ -616,7 +617,7 @@ function renderTabs(){
   const mesesUniq=[...new Set(pedidos.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
   document.getElementById('month-tabs').innerHTML=`<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+mesesUniq.map(m=>`<div class="tab ${mesSel===m?'active':''}" onclick="setMes(${m})">${MESES[m]}</div>`).join('');
 }
-function setMes(m){mesSel=m;renderTabs();renderPedidos();}
+function setMes(m){mesSel=m;paginaAtual=0;renderTabs();renderPedidos();}
 
 function renderPedidos(){
   const q=(document.getElementById('busca').value||'').toLowerCase(),fs=document.getElementById('fStatus').value,ft=document.getElementById('fTransp').value;
@@ -629,12 +630,27 @@ function renderPedidos(){
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   const isAtc=p=>STATUS_ATENCAO.includes(p.status);
-  tbody.innerHTML=f.slice(0,100).map(p=>{
+  const pageSize=50;
+  const totalPags=Math.ceil(f.length/pageSize);
+  if(paginaAtual>=totalPags)paginaAtual=0;
+  const slice=f.slice(paginaAtual*pageSize,(paginaAtual+1)*pageSize);
+  tbody.innerHTML=slice.map(p=>{
     const rh=p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2 — ativo</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`;
     const sh=isAtc(p)?`<div><span class="badge b-atencao">${LABEL[p.status]}</span><div style="font-size:10px;color:var(--red);margin-top:2px;white-space:normal;font-weight:600">${p.motivo}</div></div>`:`<span class="badge b-${p.status}">${LABEL[p.status]}</span>`;
     return `<tr class="${isAtc(p)?'row-alert':''}"><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td>${sh}</td><td style="color:var(--tx2)">${p.transp||'—'}</td><td>${rh}</td><td style="color:var(--tx2)">${fdata(p.data)}</td><td style="color:var(--tx2)">${fval(p.valor)}</td><td><div style="display:flex;gap:3px"><button class="btn sm ghost" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm danger" onclick="excluir('${p.id}')">×</button></div></td></tr>`;
   }).join('');
-  if(f.length>100){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=8;td.style.cssText='text-align:center;padding:12px;color:var(--tx3);font-size:12px;';td.textContent=`...e mais ${f.length-100} pedidos. Use os filtros.`;tr.appendChild(td);tbody.appendChild(tr);}
+  if(totalPags>1){
+    const pRow=document.createElement('tr');
+    const pTd=document.createElement('td');
+    pTd.colSpan=8;
+    pTd.style.cssText='text-align:center;padding:12px;border-top:1px solid var(--border);';
+    pTd.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;gap:8px;font-size:12px;">
+      <button class="btn sm ghost" onclick="irPagina(${paginaAtual-1})" ${paginaAtual===0?'disabled':''}>← Anterior</button>
+      <span style="color:var(--tx2)">Página ${paginaAtual+1} de ${totalPags} — ${f.length} pedidos</span>
+      <button class="btn sm ghost" onclick="irPagina(${paginaAtual+1})" ${paginaAtual>=totalPags-1?'disabled':''}>Próxima →</button>
+    </div>`;
+    pRow.appendChild(pTd);tbody.appendChild(pRow);
+  }
 }
 
 function renderAtencao(){
