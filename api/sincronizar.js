@@ -1,3 +1,5 @@
+export const config = { api: { bodyParser: false } };
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).end(); return; }
 
@@ -73,7 +75,7 @@ export default async function handler(req, res) {
         }
       }
     }
-    res.status(200).json({ ok: true, atualizados, total_rastreios: codigos.length });
+    res.status(200).json({ ok: true, atualizados, total: codigos.length });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
