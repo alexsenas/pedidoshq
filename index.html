@@ -3,159 +3,266 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>PedidosHQ</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<title>Coringão Shop — Controle de Pedidos</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --green:#1D9E75;--green-dk:#0F6E56;--green-lt:#E1F5EE;
-  --amber:#BA7517;--amber-lt:#FAEEDA;--amber-dk:#633806;
-  --red:#A32D2D;--red-lt:#FCEBEB;--red-dk:#791F1F;
-  --blue:#185FA5;--blue-lt:#E6F1FB;
-  --gray-lt:#F1EFE8;--gray:#5F5E5A;
-  --bg:#F7F6F3;--surface:#ffffff;--surface2:#F7F6F3;
-  --border:rgba(0,0,0,0.10);--border2:rgba(0,0,0,0.18);
-  --tx:#1A1A18;--tx2:#6B6B67;--tx3:#9B9B96;
-  --radius:8px;--radius-lg:12px;
+  --black:#0A0A0A;
+  --black2:#111111;
+  --black3:#1A1A1A;
+  --gray1:#2C2C2C;
+  --gray2:#444444;
+  --gray3:#888888;
+  --gray4:#BBBBBB;
+  --gray5:#E5E5E5;
+  --white:#F7F7F7;
+  --white2:#EFEFEF;
+  --surface:#FFFFFF;
+  --bg:#F2F2F2;
+  --border:#E0E0E0;
+  --border2:#C8C8C8;
+  --tx:#0A0A0A;
+  --tx2:#555;
+  --tx3:#999;
+  --green:#16A34A;--green-lt:#DCFCE7;--green-dk:#14532D;
+  --amber:#B45309;--amber-lt:#FEF3C7;--amber-dk:#78350F;
+  --red:#DC2626;--red-lt:#FEE2E2;--red-dk:#7F1D1D;
+  --blue:#1D4ED8;--blue-lt:#DBEAFE;
+  --radius:6px;--radius-lg:10px;
 }
-body{font-family:'DM Sans',sans-serif;font-size:13px;background:var(--bg);color:var(--tx);}
+body{font-family:'Syne',sans-serif;font-size:13px;background:var(--bg);color:var(--tx);}
 .shell{display:flex;min-height:100vh;}
-.sidebar{width:200px;flex-shrink:0;background:var(--surface);border-right:0.5px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:50;}
-.main{flex:1;margin-left:200px;padding:1.5rem;max-width:1200px;}
-.sb-brand{padding:1.1rem 1rem .9rem;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--border);}
-.sb-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;}
-.sb-title{font-size:13px;font-weight:500;}
-.sb-section{padding:10px 1rem 3px;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--tx3);margin-top:2px;}
-.sb-item{display:flex;align-items:center;gap:8px;padding:8px 1rem;cursor:pointer;color:var(--tx2);font-size:12px;border-left:2px solid transparent;transition:all .15s;}
-.sb-item:hover{background:var(--surface2);color:var(--tx);}
-.sb-item.active{color:var(--green);background:var(--green-lt);border-left-color:var(--green);}
-.sb-item svg{flex-shrink:0;opacity:.7;}
+
+/* SIDEBAR */
+.sidebar{width:220px;flex-shrink:0;background:var(--black);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:50;}
+.sb-brand{padding:1.25rem 1.1rem 1rem;border-bottom:1px solid rgba(255,255,255,0.08);}
+.sb-escudo{width:36px;height:36px;margin-bottom:10px;}
+.sb-escudo svg{width:36px;height:36px;}
+.sb-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:#FFFFFF;line-height:1;}
+.sb-sub{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,0.35);margin-top:2px;}
+.sb-section{padding:14px 1.1rem 4px;font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,0.25);font-weight:600;}
+.sb-item{display:flex;align-items:center;gap:9px;padding:9px 1.1rem;cursor:pointer;color:rgba(255,255,255,0.5);font-size:12px;font-weight:500;border-left:2px solid transparent;transition:all .15s;letter-spacing:.01em;}
+.sb-item:hover{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.85);}
+.sb-item.active{color:#FFFFFF;background:rgba(255,255,255,0.10);border-left-color:#FFFFFF;}
+.sb-item svg{flex-shrink:0;opacity:.6;}
 .sb-item.active svg{opacity:1;}
-.sb-badge{margin-left:auto;background:var(--red-lt);color:var(--red);font-size:10px;padding:1px 6px;border-radius:99px;font-weight:500;}
+.sb-badge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;padding:1px 6px;border-radius:99px;font-weight:600;}
+.sb-footer{margin-top:auto;padding:1rem 1.1rem;border-top:1px solid rgba(255,255,255,0.08);}
+.sb-user{display:flex;align-items:center;gap:8px;}
+.sb-avatar{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;}
+.sb-user-name{font-size:11px;color:rgba(255,255,255,0.5);}
+
+/* MAIN */
+.main{flex:1;margin-left:220px;padding:2rem;}
 .page{display:none;}.page.active{display:block;}
-.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px;}
-.page-title{font-size:18px;font-weight:500;}
-.sync-info{font-size:11px;color:var(--tx3);}
-.btn{padding:7px 13px;font-size:12px;font-weight:500;border:0.5px solid var(--border2);border-radius:var(--radius);background:transparent;color:var(--tx);cursor:pointer;transition:all .15s;}
-.btn:hover{background:var(--surface2);}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem;flex-wrap:wrap;gap:10px;}
+.topbar-left{}
+.page-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--tx3);font-weight:600;margin-bottom:4px;}
+.page-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.03em;color:var(--tx);line-height:1;}
+.topbar-right{display:flex;align-items:center;gap:8px;padding-top:6px;}
+
+/* BUTTONS */
+.btn{padding:8px 16px;font-size:12px;font-weight:600;border:1.5px solid var(--border2);border-radius:var(--radius);background:transparent;color:var(--tx);cursor:pointer;transition:all .15s;font-family:'Syne',sans-serif;letter-spacing:.02em;}
+.btn:hover{background:var(--black);color:#fff;border-color:var(--black);}
 .btn:active{transform:scale(.98);}
-.btn.prim{background:var(--green);color:#fff;border-color:var(--green);}
-.btn.prim:hover{background:var(--green-dk);}
-.btn.warn{background:var(--amber-lt);color:var(--amber-dk);border-color:#FAC775;}
-.btn.danger{background:var(--red-lt);color:var(--red-dk);border-color:#F09595;}
-.btn.sm{padding:3px 9px;font-size:11px;}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:1.25rem;}
-.stat{background:var(--surface2);border-radius:var(--radius);padding:12px 14px;}
-.stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);margin-bottom:5px;}
-.stat-n{font-size:22px;font-weight:500;}
-.c-green{color:var(--green);}.c-red{color:var(--red);}.c-amber{color:var(--amber);}.c-blue{color:var(--blue);}.c-tx{color:var(--tx);}
-.alert-banner{background:var(--red-lt);border:0.5px solid #F09595;border-radius:var(--radius);padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--red-dk);}
-.tabs{display:flex;gap:4px;margin-bottom:.9rem;flex-wrap:wrap;}
-.tab{padding:4px 12px;font-size:12px;border:0.5px solid var(--border);border-radius:99px;cursor:pointer;color:var(--tx2);background:transparent;transition:all .15s;}
-.tab:hover{background:var(--surface2);}
-.tab.active{background:var(--green);color:#fff;border-color:var(--green);}
-.controls{display:flex;gap:7px;margin-bottom:.9rem;flex-wrap:wrap;}
-.controls input,.controls select{padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--tx);outline:none;}
-.controls input:focus,.controls select:focus{border-color:var(--green);}
-.controls input{flex:1;min-width:160px;}
-.tbl-wrap{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
+.btn.prim{background:var(--black);color:#fff;border-color:var(--black);}
+.btn.prim:hover{background:var(--gray1);}
+.btn.warn{background:var(--amber-lt);color:var(--amber-dk);border-color:var(--amber);}
+.btn.danger{background:var(--red-lt);color:var(--red-dk);border-color:var(--red);}
+.btn.sm{padding:4px 10px;font-size:11px;}
+.btn.ghost{background:transparent;border-color:var(--border);color:var(--tx2);}
+.btn.ghost:hover{background:var(--surface);border-color:var(--border2);}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:1.5rem;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px;}
+.stat-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--tx3);margin-bottom:6px;font-weight:600;}
+.stat-n{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.02em;line-height:1;}
+.c-black{color:var(--black);}
+.c-green{color:var(--green);}
+.c-red{color:var(--red);}
+.c-amber{color:var(--amber);}
+.c-blue{color:var(--blue);}
+
+/* ALERT BANNER */
+.alert-banner{background:var(--red-lt);border:1px solid #FECACA;border-radius:var(--radius);padding:10px 14px;margin-bottom:1.1rem;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--red-dk);font-weight:500;}
+
+/* TABS */
+.tabs{display:flex;gap:4px;margin-bottom:1rem;flex-wrap:wrap;}
+.tab{padding:5px 14px;font-size:11px;font-weight:600;letter-spacing:.04em;border:1.5px solid var(--border);border-radius:99px;cursor:pointer;color:var(--tx3);background:transparent;transition:all .15s;}
+.tab:hover{border-color:var(--border2);color:var(--tx);}
+.tab.active{background:var(--black);color:#fff;border-color:var(--black);}
+
+/* CONTROLS */
+.controls{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;}
+.controls input,.controls select{padding:8px 11px;font-size:12px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--tx);outline:none;font-family:'Syne',sans-serif;}
+.controls input:focus,.controls select:focus{border-color:var(--black);}
+.controls input{flex:1;min-width:180px;}
+
+/* TABLE */
+.tbl-wrap{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 table{width:100%;border-collapse:collapse;table-layout:fixed;}
-th{background:var(--surface2);padding:9px 11px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;}
-td{padding:10px 11px;border-bottom:0.5px solid var(--border);color:var(--tx);overflow:hidden;text-overflow:ellipsis;vertical-align:middle;}
+th{background:var(--black);padding:10px 12px;text-align:left;font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,0.6);border-bottom:none;font-weight:600;font-family:'Syne',sans-serif;}
+td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--tx);overflow:hidden;text-overflow:ellipsis;vertical-align:middle;font-size:12px;}
 tr:last-child td{border-bottom:none;}
-tr:hover td{background:var(--surface2);}
-tr.row-alert td{background:#FFF8F0;}
-tr.row-alert:hover td{background:#FFF1E0;}
-.empty{text-align:center;padding:2.5rem;color:var(--tx3);font-size:12px;}
-.loading{text-align:center;padding:2rem;color:var(--tx3);font-size:12px;}
-.badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:500;white-space:nowrap;}
+tr:hover td{background:var(--bg);}
+tr.row-alert td{background:#FFF5F5;}
+tr.row-alert:hover td{background:#FEE2E2;}
+.empty{text-align:center;padding:3rem;color:var(--tx3);font-size:12px;}
+
+/* BADGES */
+.badge{display:inline-block;padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.04em;white-space:nowrap;text-transform:uppercase;}
 .b-entregue{background:var(--green-lt);color:var(--green-dk);}
 .b-transito{background:var(--blue-lt);color:var(--blue);}
 .b-reenviado{background:var(--amber-lt);color:var(--amber-dk);}
 .b-atencao,.b-devolvido,.b-extraviado{background:var(--red-lt);color:var(--red-dk);}
-.b-aguardando{background:var(--gray-lt);color:var(--gray);}
-.alert-pill{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:500;background:var(--red-lt);color:var(--red);white-space:nowrap;}
+.b-aguardando{background:var(--gray5);color:var(--gray2);}
+.alert-pill{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.03em;background:var(--red-lt);color:var(--red);text-transform:uppercase;}
+
+/* RASTREIO */
 .mono{font-family:'DM Mono',monospace;font-size:11px;}
 .track-block{display:flex;flex-direction:column;gap:1px;}
-.track-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;}
+.track-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;font-weight:600;}
 .track-active{font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);}
 .track-old{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);text-decoration:line-through;}
-.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem;}
-.card-title{font-size:12px;font-weight:500;margin-bottom:10px;}
-.barchart{display:flex;align-items:flex-end;gap:6px;height:72px;margin-bottom:4px;}
-.bar-col{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
+
+/* CARDS */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
+.card-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx2);margin-bottom:12px;}
+
+/* BAR CHART */
+.barchart{display:flex;align-items:flex-end;gap:8px;height:80px;margin-bottom:6px;}
+.bar-col{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;}
 .bar{width:100%;border-radius:3px 3px 0 0;min-height:4px;}
-.bar-val{font-size:10px;font-weight:500;color:var(--tx);}
-.prog-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
-.prog-lbl{font-size:11px;color:var(--tx2);width:70px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.prog-bg{flex:1;height:5px;background:var(--surface2);border-radius:99px;overflow:hidden;}
-.prog-fill{height:100%;border-radius:99px;}
-.prog-val{font-size:11px;font-weight:500;width:30px;text-align:right;flex-shrink:0;}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;}
+.bar-val{font-size:10px;font-weight:700;color:var(--tx);}
+
+/* PROGRESS */
+.prog-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.prog-lbl{font-size:11px;color:var(--tx2);width:75px;flex-shrink:0;font-weight:500;}
+.prog-bg{flex:1;height:6px;background:var(--gray5);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;background:var(--black);}
+.prog-val{font-size:11px;font-weight:700;width:32px;text-align:right;flex-shrink:0;}
+
+/* INTEGRATION CARDS */
+.int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;}
+.int-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;}
+.int-card h3{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--tx);}
+.int-card p{font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px;}
+.int-status{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;margin-bottom:8px;}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.dot-ok{background:var(--green);}
+.dot-warn{background:var(--amber);}
+.dot-off{background:#ccc;}
+
+/* MODAL */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;}
 .modal-bg.open{display:flex;}
-.modal{background:var(--surface);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.4rem;width:100%;max-width:480px;margin:0 1rem;max-height:85vh;overflow-y:auto;}
-.modal h3{font-size:15px;font-weight:500;margin-bottom:1rem;}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.field{margin-bottom:9px;}
-.field label{display:block;font-size:11px;color:var(--tx2);margin-bottom:3px;}
-.field input,.field select,.field textarea{width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:inherit;}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--green);}
-.field textarea{resize:vertical;min-height:56px;}
-.mfooter{display:flex;justify-content:flex-end;gap:7px;margin-top:1rem;}
-.reenvio-box{background:var(--amber-lt);border:0.5px solid #FAC775;border-radius:var(--radius);padding:10px 12px;margin:6px 0;}
-.reenvio-title{font-size:11px;font-weight:500;color:var(--amber-dk);margin-bottom:6px;}
-.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--tx);color:#fff;padding:10px 16px;border-radius:var(--radius);font-size:12px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
-.toast.show{opacity:1;}
-.db-indicator{display:flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:99px;background:var(--green-lt);color:var(--green-dk);}
+.modal{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);padding:1.5rem;width:100%;max-width:500px;margin:0 1rem;max-height:88vh;overflow-y:auto;}
+.modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.04em;color:var(--tx);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.field{margin-bottom:10px;}
+.field label{display:block;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px;}
+.field input,.field select,.field textarea{width:100%;padding:9px 11px;font-size:13px;border:1.5px solid var(--border);border-radius:var(--radius);background:var(--bg);color:var(--tx);outline:none;font-family:'Syne',sans-serif;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--black);}
+.field textarea{resize:vertical;min-height:60px;}
+.mfooter{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--border);}
+.reenvio-box{background:#FFFBEB;border:1.5px solid #FDE68A;border-radius:var(--radius);padding:12px;margin:8px 0;}
+.reenvio-title{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--amber-dk);margin-bottom:8px;}
+
+/* DB INDICATOR */
+.db-pill{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px;border-radius:99px;background:var(--green-lt);color:var(--green-dk);}
 .db-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
+
+/* TOAST */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--black);color:#fff;padding:10px 18px;border-radius:var(--radius);font-size:12px;font-weight:600;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;letter-spacing:.02em;}
+.toast.show{opacity:1;}
+
+/* DIVIDER */
+.section-divider{height:1px;background:var(--border);margin:1.5rem 0;}
+
+@media(max-width:768px){
+  .sidebar{width:100%;height:auto;position:relative;}
+  .main{margin-left:0;}
+  th:nth-child(n+5),td:nth-child(n+5){display:none;}
+}
 </style>
 </head>
 <body>
 <div class="shell">
+
+<!-- SIDEBAR -->
 <nav class="sidebar">
-  <div class="sb-brand"><div class="sb-dot"></div><span class="sb-title">PedidosHQ</span></div>
+  <div class="sb-brand">
+    <!-- Escudo Corinthians simplificado em SVG -->
+    <div class="sb-escudo">
+      <svg viewBox="0 0 36 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2L34 10V24C34 32 26 38.5 18 40C10 38.5 2 32 2 24V10L18 2Z" fill="white" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <path d="M18 6L30 13V24C30 30 24.5 35 18 36.5C11.5 35 6 30 6 24V13L18 6Z" fill="#0A0A0A"/>
+        <text x="18" y="27" text-anchor="middle" font-family="Bebas Neue,sans-serif" font-size="13" fill="white" letter-spacing="1">SCT</text>
+      </svg>
+    </div>
+    <div class="sb-name">Coringão Shop</div>
+    <div class="sb-sub">Controle de Pedidos</div>
+  </div>
+
   <div class="sb-item active" onclick="nav('dash',this)">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg>
     Dashboard
   </div>
   <div class="sb-item" onclick="nav('pedidos',this)">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
-    Todos os pedidos
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h8"/></svg>
+    Todos os Pedidos
   </div>
   <div class="sb-item" onclick="nav('atencao',this)" id="sb-atencao">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>
     Atenção
     <span class="sb-badge" id="badge-count">0</span>
   </div>
   <div class="sb-item" onclick="nav('reenviados',this)">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h10M9 5l3 3-3 3"/><path d="M5 4a6 6 0 100 8"/></svg>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 8h10M9 5l3 3-3 3"/><path d="M5 4a6 6 0 100 8"/></svg>
     Reenviados
   </div>
+
   <div class="sb-section">Configurações</div>
   <div class="sb-item" onclick="nav('integracao',this)">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="8" r="2"/><circle cx="12" cy="8" r="2"/><path d="M6 8h4"/></svg>
+    <svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="4" cy="8" r="2"/><circle cx="12" cy="8" r="2"/><path d="M6 8h4"/></svg>
     Integrações
+  </div>
+
+  <div class="sb-footer">
+    <div class="sb-user">
+      <div class="sb-avatar">CS</div>
+      <div class="sb-user-name">Coringão Shop</div>
+    </div>
   </div>
 </nav>
 
+<!-- MAIN -->
 <main class="main">
 
   <!-- DASHBOARD -->
   <div class="page active" id="pg-dash">
     <div class="topbar">
-      <div class="page-title">Dashboard</div>
-      <div style="display:flex;align-items:center;gap:8px;">
-        <div class="db-indicator"><div class="db-dot"></div>Supabase conectado</div>
-        <button class="btn prim" onclick="abrirModal()">+ Novo pedido</button>
+      <div class="topbar-left">
+        <div class="page-eyebrow">Olá, Coringão Shop</div>
+        <div class="page-title">Dashboard</div>
+      </div>
+      <div class="topbar-right">
+        <div class="db-pill"><div class="db-dot"></div>Banco conectado</div>
+        <button class="btn prim" onclick="abrirModal()">+ Novo Pedido</button>
       </div>
     </div>
     <div id="alert-banner-dash"></div>
     <div class="stats" id="dash-stats"></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:1rem;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:1.25rem;">
       <div class="card">
         <div class="card-title">Pedidos por mês</div>
         <div class="barchart" id="barchart"></div>
-        <div style="display:flex;gap:6px;" id="barlabels"></div>
+        <div style="display:flex;gap:8px;" id="barlabels"></div>
       </div>
       <div class="card">
         <div class="card-title">Alertas por motivo</div>
@@ -163,13 +270,13 @@ tr.row-alert:hover td{background:#FFF1E0;}
       </div>
     </div>
     <div class="card">
-      <div class="card-title">Últimos pedidos com atenção</div>
+      <div class="card-title">Pedidos com atenção — recentes</div>
       <table style="width:100%;border-collapse:collapse;table-layout:fixed;">
         <thead><tr>
-          <th style="background:var(--surface2);padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;width:80px">Pedido</th>
-          <th style="background:var(--surface2);padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;">Cliente</th>
-          <th style="background:var(--surface2);padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;width:170px">Motivo</th>
-          <th style="background:var(--surface2);padding:8px 10px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;width:85px">Ação</th>
+          <th style="width:85px">Pedido</th>
+          <th>Cliente</th>
+          <th style="width:190px">Motivo</th>
+          <th style="width:90px">Ação</th>
         </tr></thead>
         <tbody id="dash-atencao"></tbody>
       </table>
@@ -179,12 +286,17 @@ tr.row-alert:hover td{background:#FFF1E0;}
   <!-- TODOS OS PEDIDOS -->
   <div class="page" id="pg-pedidos">
     <div class="topbar">
-      <div class="page-title">Todos os pedidos</div>
-      <button class="btn prim" onclick="abrirModal()">+ Novo pedido</button>
+      <div class="topbar-left">
+        <div class="page-eyebrow">Coringão Shop</div>
+        <div class="page-title">Todos os Pedidos</div>
+      </div>
+      <div class="topbar-right">
+        <button class="btn prim" onclick="abrirModal()">+ Novo Pedido</button>
+      </div>
     </div>
     <div class="tabs" id="month-tabs"></div>
     <div class="controls">
-      <input type="text" id="busca" placeholder="Pedido, cliente ou rastreio..." oninput="renderPedidos()"/>
+      <input type="text" id="busca" placeholder="Buscar pedido, cliente ou rastreio..." oninput="renderPedidos()"/>
       <select id="fStatus" onchange="renderPedidos()">
         <option value="">Todos os status</option>
         <option value="entregue">Entregue</option>
@@ -196,7 +308,7 @@ tr.row-alert:hover td{background:#FFF1E0;}
         <option value="aguardando">Aguardando</option>
       </select>
       <select id="fTransp" onchange="renderPedidos()">
-        <option value="">Todas as transportadoras</option>
+        <option value="">Todas transportadoras</option>
         <option value="Correios">Correios</option>
         <option value="Jadlog">Jadlog</option>
         <option value="Loggi">Loggi</option>
@@ -205,14 +317,14 @@ tr.row-alert:hover td{background:#FFF1E0;}
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th style="width:80px">Pedido</th>
-          <th style="width:120px">Cliente</th>
-          <th style="width:100px">Status</th>
-          <th style="width:75px">Transp.</th>
+          <th style="width:85px">Pedido</th>
+          <th style="width:130px">Cliente</th>
+          <th style="width:105px">Status</th>
+          <th style="width:80px">Transp.</th>
           <th>Rastreio</th>
           <th style="width:70px">Data</th>
-          <th style="width:80px">Valor</th>
-          <th style="width:90px">Ações</th>
+          <th style="width:85px">Valor</th>
+          <th style="width:95px">Ações</th>
         </tr></thead>
         <tbody id="pedidos-tbody"></tbody>
       </table>
@@ -222,7 +334,12 @@ tr.row-alert:hover td{background:#FFF1E0;}
 
   <!-- ATENÇÃO -->
   <div class="page" id="pg-atencao">
-    <div class="topbar"><div class="page-title">Pedidos com atenção</div></div>
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="page-eyebrow">Requer ação imediata</div>
+        <div class="page-title">Pedidos com Atenção</div>
+      </div>
+    </div>
     <div id="atencao-banner"></div>
     <div class="controls">
       <select id="fMotivo" onchange="renderAtencao()">
@@ -237,12 +354,12 @@ tr.row-alert:hover td{background:#FFF1E0;}
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th style="width:80px">Pedido</th>
-          <th style="width:120px">Cliente</th>
-          <th style="width:175px">Motivo do alerta</th>
+          <th style="width:85px">Pedido</th>
+          <th style="width:130px">Cliente</th>
+          <th style="width:185px">Motivo do alerta</th>
           <th>Rastreio ativo</th>
           <th style="width:70px">Data</th>
-          <th style="width:110px">Ações</th>
+          <th style="width:115px">Ações</th>
         </tr></thead>
         <tbody id="atencao-tbody"></tbody>
       </table>
@@ -252,17 +369,22 @@ tr.row-alert:hover td{background:#FFF1E0;}
 
   <!-- REENVIADOS -->
   <div class="page" id="pg-reenviados">
-    <div class="topbar"><div class="page-title">Pedidos reenviados</div></div>
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="page-eyebrow">Dois códigos ativos</div>
+        <div class="page-title">Pedidos Reenviados</div>
+      </div>
+    </div>
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th style="width:80px">Pedido</th>
-          <th style="width:120px">Cliente</th>
-          <th style="width:95px">Status</th>
+          <th style="width:85px">Pedido</th>
+          <th style="width:130px">Cliente</th>
+          <th style="width:105px">Status</th>
           <th>Cód. 1 — original</th>
           <th>Cód. 2 — reenvio</th>
           <th style="width:70px">Data</th>
-          <th style="width:100px">Ações</th>
+          <th style="width:110px">Ações</th>
         </tr></thead>
         <tbody id="reenviados-tbody"></tbody>
       </table>
@@ -272,22 +394,27 @@ tr.row-alert:hover td{background:#FFF1E0;}
 
   <!-- INTEGRAÇÕES -->
   <div class="page" id="pg-integracao">
-    <div class="topbar"><div class="page-title">Integrações</div></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
-      <div class="card">
-        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">Supabase</h3>
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);"></div>Conectado e funcionando</div>
-        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Seus pedidos estão sendo salvos na nuvem em tempo real. Dados não se perdem ao fechar o navegador.</p>
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="page-eyebrow">Conexões externas</div>
+        <div class="page-title">Integrações</div>
       </div>
-      <div class="card">
-        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">Shopify</h3>
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--amber);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);"></div>Próxima fase</div>
-        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Vai importar pedidos e rastreios automaticamente. Quando você atualizar o código na Shopify, o sistema detecta o reenvio sozinho.</p>
+    </div>
+    <div class="int-grid">
+      <div class="int-card">
+        <h3>Supabase</h3>
+        <div class="int-status"><div class="status-dot dot-ok"></div><span style="color:var(--green)">Conectado e funcionando</span></div>
+        <p>Seus pedidos estão salvos na nuvem em tempo real. Os dados não se perdem ao fechar o navegador.</p>
       </div>
-      <div class="card">
-        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">17Track</h3>
-        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--amber);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);"></div>Próxima fase</div>
-        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Rastreio automático de Correios, Jadlog e Loggi. Alertas de importação, Receita Federal e autenticidade da marca.</p>
+      <div class="int-card">
+        <h3>Shopify</h3>
+        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Próxima fase</span></div>
+        <p>Vai importar pedidos e rastreios automaticamente. Quando você atualizar o código na Shopify, o sistema detecta o reenvio sozinho.</p>
+      </div>
+      <div class="int-card">
+        <h3>17Track</h3>
+        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Próxima fase</span></div>
+        <p>Rastreio automático de Correios, Jadlog e Loggi. Alertas de Receita Federal, autenticidade da marca e importação não autorizada.</p>
       </div>
     </div>
   </div>
@@ -298,7 +425,10 @@ tr.row-alert:hover td{background:#FFF1E0;}
 <!-- MODAL -->
 <div class="modal-bg" id="modalBg">
   <div class="modal" onclick="event.stopPropagation()">
-    <h3 id="modal-titulo">Novo pedido</h3>
+    <div class="modal-header">
+      <h3 id="modal-titulo">Novo Pedido</h3>
+      <button class="btn ghost sm" onclick="fecharModal()">✕ Fechar</button>
+    </div>
     <div class="grid2">
       <div class="field"><label>Nº do pedido</label><input id="f-num" placeholder="#10100"/></div>
       <div class="field"><label>Data</label><input type="date" id="f-data"/></div>
@@ -332,18 +462,20 @@ tr.row-alert:hover td{background:#FFF1E0;}
     </div>
     <div class="field"><label>Código de rastreio 1 (original)</label><input id="f-rastreio1" placeholder="Ex: BR123456789BR" style="font-family:'DM Mono',monospace;"/></div>
     <div id="campo-reenvio" style="display:none" class="reenvio-box">
-      <div class="reenvio-title">Código 2 — reenvio</div>
+      <div class="reenvio-title">Código 2 — Reenvio</div>
       <div class="field" style="margin-bottom:0">
         <label>Código de rastreio 2 (novo)</label>
         <input id="f-rastreio2" placeholder="Ex: BR987654321BR" style="font-family:'DM Mono',monospace;"/>
       </div>
-      <div style="font-size:11px;color:var(--amber-dk);margin-top:5px;">Ambos ficam ativos até um ser entregue.</div>
+      <div style="font-size:11px;color:var(--amber-dk);margin-top:6px;font-weight:500;">Ambos os códigos ficam ativos até um ser entregue.</div>
     </div>
-    <div class="field"><label>Valor do pedido (R$)</label><input id="f-valor" type="number" step="0.01" placeholder="0.00"/></div>
-    <div class="field"><label>Observações (opcional)</label><textarea id="f-obs" placeholder="Anotações internas..."></textarea></div>
+    <div class="grid2">
+      <div class="field"><label>Valor (R$)</label><input id="f-valor" type="number" step="0.01" placeholder="0.00"/></div>
+    </div>
+    <div class="field"><label>Observações</label><textarea id="f-obs" placeholder="Anotações internas sobre este pedido..."></textarea></div>
     <div class="mfooter">
-      <button class="btn" onclick="fecharModal()">Cancelar</button>
-      <button class="btn prim" onclick="salvar()">Salvar pedido</button>
+      <button class="btn ghost" onclick="fecharModal()">Cancelar</button>
+      <button class="btn prim" onclick="salvar()">Salvar Pedido</button>
     </div>
   </div>
 </div>
@@ -351,76 +483,36 @@ tr.row-alert:hover td{background:#FFF1E0;}
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── SUPABASE CONFIG ───────────────────────
-const SUPA_URL = 'https://tjpqlwegdkodfblsrpre.supabase.co';
-const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcHFsd2VnZGtvZGZibHNycHJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODgzMDcsImV4cCI6MjA5MTg2NDMwN30.DIVUeKjJVgTazvV5s2fqKcJCTLJf2HpEgjrBWyu-vSo';
-const HEADERS = {'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+const SUPA_URL='https://tjpqlwegdkodfblsrpre.supabase.co';
+const SUPA_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcHFsd2VnZGtvZGZibHNycHJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODgzMDcsImV4cCI6MjA5MTg2NDMwN30.DIVUeKjJVgTazvV5s2fqKcJCTLJf2HpEgjrBWyu-vSo';
+const H={'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
 
-async function dbGet(){
-  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...HEADERS,'Prefer':'return=representation'}});
-  if(!r.ok)throw new Error('Erro ao buscar pedidos');
-  return r.json();
-}
-async function dbInsert(obj){
-  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(obj)});
-  if(!r.ok)throw new Error('Erro ao salvar');
-  const d=await r.json();return d[0];
-}
-async function dbUpdate(id,obj){
-  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(obj)});
-  if(!r.ok)throw new Error('Erro ao atualizar');
-  const d=await r.json();return d[0];
-}
-async function dbDelete(id){
-  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:HEADERS});
-  if(!r.ok)throw new Error('Erro ao remover');
-}
+async function dbGet(){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...H,'Prefer':'return=representation'}});if(!r.ok)throw new Error();return r.json();}
+async function dbInsert(o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
+async function dbUpdate(id,o){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...H,'Prefer':'return=representation'},body:JSON.stringify(o)});if(!r.ok)throw new Error();const d=await r.json();return d[0];}
+async function dbDelete(id){const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:H});if(!r.ok)throw new Error();}
 
-// ─── STATE ─────────────────────────────────
 const MESES=['Jan','Fev','Mar','Abr'];
-const LABEL={entregue:'Entregue',transito:'Em trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
+const LABEL={entregue:'Entregue',transito:'Em Trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
 const STATUS_ATENCAO=['atencao','devolvido','extraviado'];
-const MOTIVOS_ATENCAO=['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
+const MOTIVOS=['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
 
-let pedidos=[];
-let editId=null;
-let mesSel='todos';
+let pedidos=[],editId=null,mesSel='todos';
 
-function getMes(data){
-  if(!data)return 0;
-  const m=parseInt(data.split('-')[1])-1;
-  return m>=0&&m<4?m:0;
-}
+function getMes(d){if(!d)return 0;const m=parseInt(d.split('-')[1])-1;return m>=0&&m<4?m:0;}
 function fdata(d){if(!d)return'—';const[y,m,dia]=d.split('-');return`${dia}/${m}`;}
 function fval(v){return'R$ '+parseFloat(v||0).toFixed(2).replace('.',',');}
-function toast(msg,err){
-  const t=document.getElementById('toast');
-  t.textContent=msg;
-  t.style.background=err?'#A32D2D':'#1A1A18';
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),2500);
-}
+function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'#DC2626':'#0A0A0A';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 
-// ─── CARREGAR DADOS ────────────────────────
 async function carregarPedidos(){
-  try{
-    pedidos=await dbGet();
-    renderDash();renderTabs();renderPedidos();
-  }catch(e){
-    toast('Erro ao conectar com o banco de dados.',true);
-  }
+  try{pedidos=await dbGet();renderDash();renderTabs();renderPedidos();}
+  catch(e){toast('Erro ao conectar com o banco.',true);}
 }
 
-// ─── DASHBOARD ─────────────────────────────
 function renderDash(){
-  const tot=pedidos.length;
-  const ent=pedidos.filter(p=>p.status==='entregue').length;
-  const tra=pedidos.filter(p=>p.status==='transito').length;
-  const rei=pedidos.filter(p=>p.status==='reenviado').length;
-  const atc=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).length;
-  const taxa=tot?Math.round(ent/tot*100):0;
+  const tot=pedidos.length,ent=pedidos.filter(p=>p.status==='entregue').length,tra=pedidos.filter(p=>p.status==='transito').length,rei=pedidos.filter(p=>p.status==='reenviado').length,atc=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).length,taxa=tot?Math.round(ent/tot*100):0;
   document.getElementById('dash-stats').innerHTML=`
-    <div class="stat"><div class="stat-lbl">Total pedidos</div><div class="stat-n c-tx">${tot}</div></div>
+    <div class="stat"><div class="stat-lbl">Total</div><div class="stat-n c-black">${tot}</div></div>
     <div class="stat"><div class="stat-lbl">Entregues</div><div class="stat-n c-green">${ent}</div></div>
     <div class="stat"><div class="stat-lbl">Em trânsito</div><div class="stat-n c-blue">${tra}</div></div>
     <div class="stat"><div class="stat-lbl">Reenviados</div><div class="stat-n c-amber">${rei}</div></div>
@@ -429,152 +521,78 @@ function renderDash(){
   `;
   document.getElementById('badge-count').textContent=atc;
   const banner=document.getElementById('alert-banner-dash');
-  banner.innerHTML=atc>0
-    ?`<div class="alert-banner"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg><span><strong>${atc} pedidos</strong> precisam de atenção —</span><button class="btn sm warn" onclick="nav('atencao',null)" style="margin-left:6px">Ver agora</button></div>`
-    :'';
+  banner.innerHTML=atc>0?`<div class="alert-banner"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg><span><strong>${atc} pedidos</strong> precisam de atenção —</span><button class="btn sm" onclick="nav('atencao',null)" style="margin-left:8px;background:var(--red);color:#fff;border-color:var(--red)">Ver agora</button></div>`:'';
   const qtdM=[0,1,2,3].map(m=>pedidos.filter(p=>getMes(p.data)===m).length);
   const mx=Math.max(...qtdM,1);
-  const clrs=['#B5D4F4','#9FE1CB','#FAC775','#F5C4B3'];
-  document.getElementById('barchart').innerHTML=qtdM.map((c,i)=>`<div class="bar-col"><div class="bar-val">${c}</div><div class="bar" style="height:${Math.round(c/mx*54)+4}px;background:${clrs[i]}"></div></div>`).join('');
-  document.getElementById('barlabels').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--tx2)">${m}</div>`).join('');
-  const mc={};
-  pedidos.filter(p=>p.motivo).forEach(p=>{mc[p.motivo]=(mc[p.motivo]||0)+1;});
-  const mots=Object.entries(mc).sort((a,b)=>b[1]-a[1]);
-  const mx2=mots.length?mots[0][1]:1;
-  document.getElementById('motivo-prog').innerHTML=mots.length
-    ?mots.map(([m,c])=>`<div class="prog-row"><div class="prog-lbl" title="${m}">${m}</div><div class="prog-bg"><div class="prog-fill" style="width:${Math.round(c/mx2*100)}%;background:#E24B4A"></div></div><div class="prog-val c-red">${c}</div></div>`).join('')
-    :'<div style="font-size:12px;color:var(--tx3)">Nenhum alerta ativo.</div>';
+  document.getElementById('barchart').innerHTML=qtdM.map((c,i)=>`<div class="bar-col"><div class="bar-val">${c}</div><div class="bar" style="height:${Math.round(c/mx*60)+4}px;background:${i%2===0?'#0A0A0A':'#C8C8C8'}"></div></div>`).join('');
+  document.getElementById('barlabels').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--tx3);font-weight:600;letter-spacing:.06em;text-transform:uppercase">${m}</div>`).join('');
+  const mc={};pedidos.filter(p=>p.motivo).forEach(p=>{mc[p.motivo]=(mc[p.motivo]||0)+1;});
+  const mots=Object.entries(mc).sort((a,b)=>b[1]-a[1]);const mx2=mots.length?mots[0][1]:1;
+  document.getElementById('motivo-prog').innerHTML=mots.length?mots.map(([m,c])=>`<div class="prog-row"><div class="prog-lbl" title="${m}">${m}</div><div class="prog-bg"><div class="prog-fill" style="width:${Math.round(c/mx2*100)}%;background:var(--red)"></div></div><div class="prog-val c-red">${c}</div></div>`).join(''):'<div style="font-size:12px;color:var(--tx3)">Nenhum alerta ativo.</div>';
   const lista=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).slice(0,5);
-  document.getElementById('dash-atencao').innerHTML=lista.map(p=>`<tr>
-    <td style="font-weight:500">${p.pedido}</td><td>${p.cliente}</td>
-    <td><span class="alert-pill">${p.motivo||LABEL[p.status]}</span></td>
-    <td><button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button></td>
-  </tr>`).join('')||`<tr><td colspan="4" class="empty">Nenhum pedido com atenção.</td></tr>`;
+  document.getElementById('dash-atencao').innerHTML=lista.map(p=>`<tr><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td><span class="alert-pill">${p.motivo||LABEL[p.status]}</span></td><td><button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button></td></tr>`).join('')||`<tr><td colspan="4" class="empty">Nenhum pedido com atenção.</td></tr>`;
 }
 
-// ─── TABS ──────────────────────────────────
 function renderTabs(){
-  document.getElementById('month-tabs').innerHTML=
-    `<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+
-    MESES.map((m,i)=>`<div class="tab ${mesSel===i?'active':''}" onclick="setMes(${i})">${m}</div>`).join('');
+  document.getElementById('month-tabs').innerHTML=`<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+MESES.map((m,i)=>`<div class="tab ${mesSel===i?'active':''}" onclick="setMes(${i})">${m}</div>`).join('');
 }
 function setMes(m){mesSel=m;renderTabs();renderPedidos();}
 
-// ─── PEDIDOS ───────────────────────────────
 function renderPedidos(){
-  const q=(document.getElementById('busca').value||'').toLowerCase();
-  const fs=document.getElementById('fStatus').value;
-  const ft=document.getElementById('fTransp').value;
+  const q=(document.getElementById('busca').value||'').toLowerCase(),fs=document.getElementById('fStatus').value,ft=document.getElementById('fTransp').value;
   let f=pedidos.filter(p=>{
     const mm=mesSel==='todos'||getMes(p.data)===mesSel;
     const mq=!q||(p.pedido||'').toLowerCase().includes(q)||(p.cliente||'').toLowerCase().includes(q)||(p.rastreio1||'').toLowerCase().includes(q)||(p.rastreio2||'').toLowerCase().includes(q);
     return mm&&mq&&(!fs||p.status===fs)&&(!ft||p.transp===ft);
   });
-  const tbody=document.getElementById('pedidos-tbody');
-  const empty=document.getElementById('pedidos-empty');
+  const tbody=document.getElementById('pedidos-tbody'),empty=document.getElementById('pedidos-empty');
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   const isAtc=p=>STATUS_ATENCAO.includes(p.status);
   tbody.innerHTML=f.slice(0,100).map(p=>{
-    const rastreioHtml=p.rastreio2
-      ?`<div class="track-block"><div class="track-lbl">Cód 2 (ativo)</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`
-      :`<span class="mono">${p.rastreio1||'—'}</span>`;
-    const statusHtml=isAtc(p)
-      ?`<div><span class="badge b-atencao">${LABEL[p.status]}</span><div style="font-size:10px;color:var(--red);margin-top:1px;white-space:normal;">${p.motivo}</div></div>`
-      :`<span class="badge b-${p.status}">${LABEL[p.status]}</span>`;
-    return `<tr class="${isAtc(p)?'row-alert':''}">
-      <td style="font-weight:500">${p.pedido}</td>
-      <td>${p.cliente}</td>
-      <td>${statusHtml}</td>
-      <td style="color:var(--tx2)">${p.transp||'—'}</td>
-      <td>${rastreioHtml}</td>
-      <td style="color:var(--tx2)">${fdata(p.data)}</td>
-      <td style="color:var(--tx2)">${fval(p.valor)}</td>
-      <td><div style="display:flex;gap:3px"><button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm danger" onclick="excluir('${p.id}')">×</button></div></td>
-    </tr>`;
+    const rh=p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2 — ativo</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`;
+    const sh=isAtc(p)?`<div><span class="badge b-atencao">${LABEL[p.status]}</span><div style="font-size:10px;color:var(--red);margin-top:2px;white-space:normal;font-weight:600">${p.motivo}</div></div>`:`<span class="badge b-${p.status}">${LABEL[p.status]}</span>`;
+    return `<tr class="${isAtc(p)?'row-alert':''}"><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td>${sh}</td><td style="color:var(--tx2)">${p.transp||'—'}</td><td>${rh}</td><td style="color:var(--tx2)">${fdata(p.data)}</td><td style="color:var(--tx2)">${fval(p.valor)}</td><td><div style="display:flex;gap:3px"><button class="btn sm ghost" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm danger" onclick="excluir('${p.id}')">×</button></div></td></tr>`;
   }).join('');
-  if(f.length>100){
-    const tr=document.createElement('tr');const td=document.createElement('td');
-    td.colSpan=8;td.style.cssText='text-align:center;padding:10px;color:var(--tx3);font-size:12px;';
-    td.textContent=`...e mais ${f.length-100} pedidos. Use os filtros.`;
-    tr.appendChild(td);tbody.appendChild(tr);
-  }
+  if(f.length>100){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=8;td.style.cssText='text-align:center;padding:12px;color:var(--tx3);font-size:12px;';td.textContent=`...e mais ${f.length-100} pedidos. Use os filtros.`;tr.appendChild(td);tbody.appendChild(tr);}
 }
 
-// ─── ATENÇÃO ───────────────────────────────
 function renderAtencao(){
   const fm=(document.getElementById('fMotivo')||{}).value||'';
   let f=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status));
   if(fm)f=f.filter(p=>p.motivo===fm);
-  const tbody=document.getElementById('atencao-tbody');
-  const empty=document.getElementById('atencao-empty');
-  const banner=document.getElementById('atencao-banner');
-  banner.innerHTML=f.length?`<div class="alert-banner" style="margin-bottom:.9rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação</div>`:'';
+  const tbody=document.getElementById('atencao-tbody'),empty=document.getElementById('atencao-empty'),banner=document.getElementById('atencao-banner');
+  banner.innerHTML=f.length?`<div class="alert-banner" style="margin-bottom:1rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação imediata</div>`:'';
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  tbody.innerHTML=f.map(p=>`<tr class="row-alert">
-    <td style="font-weight:500">${p.pedido}</td>
-    <td>${p.cliente}</td>
-    <td><span class="alert-pill">${p.motivo}</span></td>
-    <td>${p.rastreio2
-      ?`<div class="track-block"><div class="track-lbl">Cód 2</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`
-      :`<span class="mono">${p.rastreio1||'—'}</span>`}</td>
-    <td style="color:var(--tx2)">${fdata(p.data)}</td>
-    <td><div style="display:flex;gap:3px;flex-wrap:wrap">
-      <button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button>
-      <button class="btn sm warn" onclick="marcarReenviado('${p.id}')">Reenviar</button>
-    </div></td>
-  </tr>`).join('');
+  tbody.innerHTML=f.map(p=>`<tr class="row-alert"><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td><span class="alert-pill">${p.motivo}</span></td><td>${p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`}</td><td style="color:var(--tx2)">${fdata(p.data)}</td><td><div style="display:flex;gap:3px;flex-wrap:wrap"><button class="btn sm ghost" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm warn" onclick="marcarReenviado('${p.id}')">Reenviar</button></div></td></tr>`).join('');
 }
 
-// ─── REENVIADOS ────────────────────────────
 function renderReenviados(){
   const f=pedidos.filter(p=>p.status==='reenviado'||p.rastreio2);
-  const tbody=document.getElementById('reenviados-tbody');
-  const empty=document.getElementById('reenviados-empty');
+  const tbody=document.getElementById('reenviados-tbody'),empty=document.getElementById('reenviados-empty');
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
-  tbody.innerHTML=f.map(p=>`<tr>
-    <td style="font-weight:500">${p.pedido}</td>
-    <td>${p.cliente}</td>
-    <td><span class="badge b-${p.status}">${LABEL[p.status]}</span></td>
-    <td><div class="track-old">${p.rastreio1||'—'}</div></td>
-    <td>${p.rastreio2?`<div class="track-active mono">${p.rastreio2}</div>`:'<span style="color:var(--tx3);font-size:11px">Aguardando cód 2</span>'}</td>
-    <td style="color:var(--tx2)">${fdata(p.data)}</td>
-    <td><button class="btn sm prim" onclick="marcarEntregue('${p.id}')">Marcar entregue</button></td>
-  </tr>`).join('');
+  tbody.innerHTML=f.map(p=>`<tr><td style="font-weight:700">${p.pedido}</td><td>${p.cliente}</td><td><span class="badge b-${p.status}">${LABEL[p.status]}</span></td><td><div class="track-old">${p.rastreio1||'—'}</div></td><td>${p.rastreio2?`<div class="track-active mono">${p.rastreio2}</div>`:'<span style="color:var(--tx3);font-size:11px">Aguardando cód 2</span>'}</td><td style="color:var(--tx2)">${fdata(p.data)}</td><td><button class="btn sm prim" onclick="marcarEntregue('${p.id}')">Marcar entregue</button></td></tr>`).join('');
 }
 
-// ─── AÇÕES ─────────────────────────────────
 async function marcarReenviado(id){
   const novo=prompt('Cole o novo código de rastreio (Cód 2):');
   if(!novo||!novo.trim())return;
-  try{
-    const updated=await dbUpdate(id,{rastreio2:novo.trim(),status:'reenviado'});
-    const i=pedidos.findIndex(p=>p.id===id);
-    if(i>=0)pedidos[i]=updated;
-    renderAtencao();renderDash();toast('Pedido marcado como reenviado.');
-  }catch(e){toast('Erro ao atualizar.',true);}
+  try{const u=await dbUpdate(id,{rastreio2:novo.trim(),status:'reenviado'});const i=pedidos.findIndex(p=>p.id===id);if(i>=0)pedidos[i]=u;renderAtencao();renderDash();toast('Pedido marcado como reenviado.');}
+  catch(e){toast('Erro ao atualizar.',true);}
 }
 async function marcarEntregue(id){
   if(!confirm('Confirmar entrega deste pedido?'))return;
-  try{
-    const updated=await dbUpdate(id,{status:'entregue'});
-    const i=pedidos.findIndex(p=>p.id===id);
-    if(i>=0)pedidos[i]=updated;
-    renderReenviados();renderDash();toast('Pedido marcado como entregue.');
-  }catch(e){toast('Erro ao atualizar.',true);}
+  try{const u=await dbUpdate(id,{status:'entregue'});const i=pedidos.findIndex(p=>p.id===id);if(i>=0)pedidos[i]=u;renderReenviados();renderDash();toast('Pedido marcado como entregue.');}
+  catch(e){toast('Erro ao atualizar.',true);}
 }
 async function excluir(id){
   if(!confirm('Remover este pedido permanentemente?'))return;
-  try{
-    await dbDelete(id);
-    pedidos=pedidos.filter(p=>p.id!==id);
-    renderPedidos();renderDash();toast('Pedido removido.');
-  }catch(e){toast('Erro ao remover.',true);}
+  try{await dbDelete(id);pedidos=pedidos.filter(p=>p.id!==id);renderPedidos();renderDash();toast('Pedido removido.');}
+  catch(e){toast('Erro ao remover.',true);}
 }
 
-// ─── MODAL ─────────────────────────────────
 function toggleCampos(){
   const s=document.getElementById('f-status').value;
   document.getElementById('campo-motivo').style.display=STATUS_ATENCAO.includes(s)?'block':'none';
@@ -582,7 +600,7 @@ function toggleCampos(){
 }
 function abrirModal(id){
   editId=id||null;
-  document.getElementById('modal-titulo').textContent=id?'Editar pedido':'Novo pedido';
+  document.getElementById('modal-titulo').textContent=id?'Editar Pedido':'Novo Pedido';
   if(id){
     const p=pedidos.find(x=>x.id===id);
     document.getElementById('f-num').value=p.pedido||'';
@@ -591,7 +609,7 @@ function abrirModal(id){
     document.getElementById('f-status').value=p.status||'aguardando';
     document.getElementById('f-rastreio1').value=p.rastreio1||'';
     document.getElementById('f-rastreio2').value=p.rastreio2||'';
-    document.getElementById('f-motivo').value=p.motivo||MOTIVOS_ATENCAO[0];
+    document.getElementById('f-motivo').value=p.motivo||MOTIVOS[0];
     document.getElementById('f-data').value=p.data||'';
     document.getElementById('f-valor').value=p.valor||'';
     document.getElementById('f-obs').value=p.obs||'';
@@ -608,55 +626,28 @@ function fecharModal(){document.getElementById('modalBg').classList.remove('open
 document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)fecharModal();});
 
 async function salvar(){
-  const num=document.getElementById('f-num').value.trim();
-  const cliente=document.getElementById('f-cliente').value.trim();
+  const num=document.getElementById('f-num').value.trim(),cliente=document.getElementById('f-cliente').value.trim();
   if(!num||!cliente){alert('Preencha o número do pedido e o nome do cliente.');return;}
-  const s=document.getElementById('f-status').value;
-  const temAtc=STATUS_ATENCAO.includes(s);
-  const dataVal=document.getElementById('f-data').value;
-  const obj={
-    pedido:num,cliente,
-    transp:document.getElementById('f-transp').value,
-    status:s,
-    rastreio1:document.getElementById('f-rastreio1').value.trim(),
-    rastreio2:document.getElementById('f-rastreio2').value.trim(),
-    motivo:temAtc?document.getElementById('f-motivo').value:'',
-    data:dataVal||null,
-    valor:parseFloat(document.getElementById('f-valor').value)||0,
-    mes:getMes(dataVal),
-    obs:document.getElementById('f-obs').value.trim()
-  };
+  const s=document.getElementById('f-status').value,temAtc=STATUS_ATENCAO.includes(s),dataVal=document.getElementById('f-data').value;
+  const obj={pedido:num,cliente,transp:document.getElementById('f-transp').value,status:s,rastreio1:document.getElementById('f-rastreio1').value.trim(),rastreio2:document.getElementById('f-rastreio2').value.trim(),motivo:temAtc?document.getElementById('f-motivo').value:'',data:dataVal||null,valor:parseFloat(document.getElementById('f-valor').value)||0,mes:getMes(dataVal),obs:document.getElementById('f-obs').value.trim()};
   try{
-    if(editId){
-      const updated=await dbUpdate(editId,obj);
-      const i=pedidos.findIndex(p=>p.id===editId);
-      if(i>=0)pedidos[i]=updated;
-      toast('Pedido atualizado.');
-    }else{
-      const novo=await dbInsert(obj);
-      pedidos.unshift(novo);
-      toast('Pedido cadastrado.');
-    }
-    fecharModal();
-    renderPedidos();renderDash();renderAtencao();renderReenviados();
+    if(editId){const u=await dbUpdate(editId,obj);const i=pedidos.findIndex(p=>p.id===editId);if(i>=0)pedidos[i]=u;toast('Pedido atualizado.');}
+    else{const n=await dbInsert(obj);pedidos.unshift(n);toast('Pedido cadastrado.');}
+    fecharModal();renderPedidos();renderDash();renderAtencao();renderReenviados();
   }catch(e){toast('Erro ao salvar pedido.',true);}
 }
 
-// ─── NAVEGAÇÃO ─────────────────────────────
 function nav(page,el){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
   const map={dash:'pg-dash',pedidos:'pg-pedidos',atencao:'pg-atencao',reenviados:'pg-reenviados',integracao:'pg-integracao'};
-  const pg=document.getElementById(map[page]);
-  if(pg)pg.classList.add('active');
-  if(el){el.classList.add('active');}
-  else{const sbMap={dash:0,pedidos:1,atencao:2,reenviados:3,integracao:4};const items=document.querySelectorAll('.sb-item');if(sbMap[page]!==undefined&&items[sbMap[page]])items[sbMap[page]].classList.add('active');}
+  const pg=document.getElementById(map[page]);if(pg)pg.classList.add('active');
+  if(el){el.classList.add('active');}else{const sbMap={dash:0,pedidos:1,atencao:2,reenviados:3,integracao:4};const items=document.querySelectorAll('.sb-item');if(sbMap[page]!==undefined&&items[sbMap[page]])items[sbMap[page]].classList.add('active');}
   if(page==='pedidos'){renderTabs();renderPedidos();}
   if(page==='atencao')renderAtencao();
   if(page==='reenviados')renderReenviados();
 }
 
-// ─── INIT ──────────────────────────────────
 carregarPedidos();
 </script>
 </body>
