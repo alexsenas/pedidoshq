@@ -19,11 +19,9 @@
   --radius:8px;--radius-lg:12px;
 }
 body{font-family:'DM Sans',sans-serif;font-size:13px;background:var(--bg);color:var(--tx);}
-/* LAYOUT */
 .shell{display:flex;min-height:100vh;}
 .sidebar{width:200px;flex-shrink:0;background:var(--surface);border-right:0.5px solid var(--border);display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:50;}
 .main{flex:1;margin-left:200px;padding:1.5rem;max-width:1200px;}
-/* SIDEBAR */
 .sb-brand{padding:1.1rem 1rem .9rem;display:flex;align-items:center;gap:8px;border-bottom:0.5px solid var(--border);}
 .sb-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0;}
 .sb-title{font-size:13px;font-weight:500;}
@@ -34,12 +32,10 @@ body{font-family:'DM Sans',sans-serif;font-size:13px;background:var(--bg);color:
 .sb-item svg{flex-shrink:0;opacity:.7;}
 .sb-item.active svg{opacity:1;}
 .sb-badge{margin-left:auto;background:var(--red-lt);color:var(--red);font-size:10px;padding:1px 6px;border-radius:99px;font-weight:500;}
-/* PAGES */
 .page{display:none;}.page.active{display:block;}
-/* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px;}
 .page-title{font-size:18px;font-weight:500;}
-/* BUTTONS */
+.sync-info{font-size:11px;color:var(--tx3);}
 .btn{padding:7px 13px;font-size:12px;font-weight:500;border:0.5px solid var(--border2);border-radius:var(--radius);background:transparent;color:var(--tx);cursor:pointer;transition:all .15s;}
 .btn:hover{background:var(--surface2);}
 .btn:active{transform:scale(.98);}
@@ -48,25 +44,20 @@ body{font-family:'DM Sans',sans-serif;font-size:13px;background:var(--bg);color:
 .btn.warn{background:var(--amber-lt);color:var(--amber-dk);border-color:#FAC775;}
 .btn.danger{background:var(--red-lt);color:var(--red-dk);border-color:#F09595;}
 .btn.sm{padding:3px 9px;font-size:11px;}
-/* STATS */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:1.25rem;}
 .stat{background:var(--surface2);border-radius:var(--radius);padding:12px 14px;}
 .stat-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);margin-bottom:5px;}
 .stat-n{font-size:22px;font-weight:500;}
 .c-green{color:var(--green);}.c-red{color:var(--red);}.c-amber{color:var(--amber);}.c-blue{color:var(--blue);}.c-tx{color:var(--tx);}
-/* ALERT BANNER */
 .alert-banner{background:var(--red-lt);border:0.5px solid #F09595;border-radius:var(--radius);padding:10px 14px;margin-bottom:1rem;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--red-dk);}
-/* TABS */
 .tabs{display:flex;gap:4px;margin-bottom:.9rem;flex-wrap:wrap;}
 .tab{padding:4px 12px;font-size:12px;border:0.5px solid var(--border);border-radius:99px;cursor:pointer;color:var(--tx2);background:transparent;transition:all .15s;}
 .tab:hover{background:var(--surface2);}
 .tab.active{background:var(--green);color:#fff;border-color:var(--green);}
-/* CONTROLS */
 .controls{display:flex;gap:7px;margin-bottom:.9rem;flex-wrap:wrap;}
 .controls input,.controls select{padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface);color:var(--tx);outline:none;}
 .controls input:focus,.controls select:focus{border-color:var(--green);}
 .controls input{flex:1;min-width:160px;}
-/* TABLE */
 .tbl-wrap{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;}
 table{width:100%;border-collapse:collapse;table-layout:fixed;}
 th{background:var(--surface2);padding:9px 11px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--tx2);border-bottom:0.5px solid var(--border);font-weight:500;}
@@ -76,7 +67,7 @@ tr:hover td{background:var(--surface2);}
 tr.row-alert td{background:#FFF8F0;}
 tr.row-alert:hover td{background:#FFF1E0;}
 .empty{text-align:center;padding:2.5rem;color:var(--tx3);font-size:12px;}
-/* BADGES */
+.loading{text-align:center;padding:2rem;color:var(--tx3);font-size:12px;}
 .badge{display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:500;white-space:nowrap;}
 .b-entregue{background:var(--green-lt);color:var(--green-dk);}
 .b-transito{background:var(--blue-lt);color:var(--blue);}
@@ -84,28 +75,22 @@ tr.row-alert:hover td{background:#FFF1E0;}
 .b-atencao,.b-devolvido,.b-extraviado{background:var(--red-lt);color:var(--red-dk);}
 .b-aguardando{background:var(--gray-lt);color:var(--gray);}
 .alert-pill{display:inline-block;padding:1px 7px;border-radius:99px;font-size:10px;font-weight:500;background:var(--red-lt);color:var(--red);white-space:nowrap;}
-/* RASTREIO */
 .mono{font-family:'DM Mono',monospace;font-size:11px;}
 .track-block{display:flex;flex-direction:column;gap:1px;}
 .track-lbl{font-size:9px;color:var(--tx3);text-transform:uppercase;letter-spacing:.04em;}
 .track-active{font-family:'DM Mono',monospace;font-size:11px;color:var(--tx);}
 .track-old{font-family:'DM Mono',monospace;font-size:10px;color:var(--tx3);text-decoration:line-through;}
-/* CARD */
 .card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem;}
 .card-title{font-size:12px;font-weight:500;margin-bottom:10px;}
-/* BAR CHART */
 .barchart{display:flex;align-items:flex-end;gap:6px;height:72px;margin-bottom:4px;}
 .bar-col{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;}
 .bar{width:100%;border-radius:3px 3px 0 0;min-height:4px;}
 .bar-val{font-size:10px;font-weight:500;color:var(--tx);}
-.bar-lbl{font-size:10px;color:var(--tx2);}
-/* PROGRESS */
 .prog-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
 .prog-lbl{font-size:11px;color:var(--tx2);width:70px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .prog-bg{flex:1;height:5px;background:var(--surface2);border-radius:99px;overflow:hidden;}
 .prog-fill{height:100%;border-radius:99px;}
 .prog-val{font-size:11px;font-weight:500;width:30px;text-align:right;flex-shrink:0;}
-/* MODAL */
 .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:400;align-items:flex-start;justify-content:center;padding-top:60px;}
 .modal-bg.open{display:flex;}
 .modal{background:var(--surface);border-radius:var(--radius-lg);border:0.5px solid var(--border);padding:1.4rem;width:100%;max-width:480px;margin:0 1rem;max-height:85vh;overflow-y:auto;}
@@ -119,36 +104,14 @@ tr.row-alert:hover td{background:#FFF1E0;}
 .mfooter{display:flex;justify-content:flex-end;gap:7px;margin-top:1rem;}
 .reenvio-box{background:var(--amber-lt);border:0.5px solid #FAC775;border-radius:var(--radius);padding:10px 12px;margin:6px 0;}
 .reenvio-title{font-size:11px;font-weight:500;color:var(--amber-dk);margin-bottom:6px;}
-/* INTEGRATION */
-.int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;}
-.int-card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.1rem;}
-.int-card h3{font-size:13px;font-weight:500;margin-bottom:5px;}
-.int-card p{font-size:12px;color:var(--tx2);line-height:1.6;margin-bottom:10px;}
-.int-status{display:flex;align-items:center;gap:5px;font-size:11px;margin-bottom:10px;}
-.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
-.dot-ok{background:var(--green);}
-.dot-warn{background:var(--amber);}
-.dot-off{background:#ccc;}
-.steps-list{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
-.step-item{display:flex;gap:8px;font-size:11px;color:var(--tx2);line-height:1.5;}
-.step-num{width:18px;height:18px;border-radius:50%;background:var(--surface2);border:0.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0;margin-top:1px;}
-.step-item strong{color:var(--tx);font-weight:500;}
-/* TOAST */
 .toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--tx);color:#fff;padding:10px 16px;border-radius:var(--radius);font-size:12px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
 .toast.show{opacity:1;}
-/* RESPONSIVE */
-@media(max-width:640px){
-  .sidebar{width:100%;height:auto;position:relative;flex-direction:row;flex-wrap:wrap;}
-  .main{margin-left:0;}
-  .sb-brand{border-bottom:none;border-right:0.5px solid var(--border);}
-  th:nth-child(n+5),td:nth-child(n+5){display:none;}
-}
+.db-indicator{display:flex;align-items:center;gap:5px;font-size:11px;padding:4px 10px;border-radius:99px;background:var(--green-lt);color:var(--green-dk);}
+.db-dot{width:6px;height:6px;border-radius:50%;background:var(--green);}
 </style>
 </head>
 <body>
-
 <div class="shell">
-<!-- SIDEBAR -->
 <nav class="sidebar">
   <div class="sb-brand"><div class="sb-dot"></div><span class="sb-title">PedidosHQ</span></div>
   <div class="sb-item active" onclick="nav('dash',this)">
@@ -175,14 +138,16 @@ tr.row-alert:hover td{background:#FFF1E0;}
   </div>
 </nav>
 
-<!-- MAIN -->
 <main class="main">
 
   <!-- DASHBOARD -->
   <div class="page active" id="pg-dash">
     <div class="topbar">
       <div class="page-title">Dashboard</div>
-      <button class="btn prim" onclick="abrirModal()">+ Novo pedido</button>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div class="db-indicator"><div class="db-dot"></div>Supabase conectado</div>
+        <button class="btn prim" onclick="abrirModal()">+ Novo pedido</button>
+      </div>
     </div>
     <div id="alert-banner-dash"></div>
     <div class="stats" id="dash-stats"></div>
@@ -308,52 +273,21 @@ tr.row-alert:hover td{background:#FFF1E0;}
   <!-- INTEGRAÇÕES -->
   <div class="page" id="pg-integracao">
     <div class="topbar"><div class="page-title">Integrações</div></div>
-    <div class="int-grid">
-      <div class="int-card">
-        <h3>Shopify</h3>
-        <p>Importa pedidos, clientes e rastreios automaticamente da sua loja.</p>
-        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Aguardando configuração</span></div>
-        <div class="steps-list">
-          <div class="step-item"><div class="step-num">1</div><div>Painel Shopify → <strong>Configurações → Apps → Desenvolver apps</strong></div></div>
-          <div class="step-item"><div class="step-num">2</div><div>Criar app privado → escopos: <strong>read_orders</strong>, <strong>read_fulfillments</strong></div></div>
-          <div class="step-item"><div class="step-num">3</div><div>Instalar app → copiar token <strong>shpat_...</strong> → colar abaixo</div></div>
-        </div>
-        <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-          <input id="shopify-domain" placeholder="sua-loja.myshopify.com" style="width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:inherit;"/>
-          <input id="shopify-token" placeholder="shpat_xxxxxxxxxxxxxxxx" style="width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:'DM Mono',monospace;"/>
-          <button class="btn prim" onclick="importarShopify()">Importar pedidos</button>
-          <div id="shopify-msg" style="font-size:11px;color:var(--green);display:none;"></div>
-        </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+      <div class="card">
+        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">Supabase</h3>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--green);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--green);"></div>Conectado e funcionando</div>
+        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Seus pedidos estão sendo salvos na nuvem em tempo real. Dados não se perdem ao fechar o navegador.</p>
       </div>
-      <div class="int-card">
-        <h3>17Track</h3>
-        <p>Rastreia Correios, Jadlog, Loggi e detecta alertas automaticamente.</p>
-        <div class="int-status"><div class="status-dot dot-warn"></div><span style="color:var(--amber)">Aguardando configuração</span></div>
-        <div style="font-size:11px;color:var(--tx2);line-height:1.7;margin-bottom:10px;">
-          Eventos monitorados:<br>
-          — Retido Receita Federal<br>
-          — Autenticidade da marca<br>
-          — Importação não autorizada<br>
-          — Devolvido / extraviado
-        </div>
-        <input id="track-key" placeholder="Sua chave 17Track..." style="width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:'DM Mono',monospace;margin-bottom:6px;"/>
-        <button class="btn prim" onclick="ativar17track()">Ativar rastreio automático</button>
-        <div id="track-msg" style="font-size:11px;color:var(--green);margin-top:6px;display:none;"></div>
+      <div class="card">
+        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">Shopify</h3>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--amber);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);"></div>Próxima fase</div>
+        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Vai importar pedidos e rastreios automaticamente. Quando você atualizar o código na Shopify, o sistema detecta o reenvio sozinho.</p>
       </div>
-      <div class="int-card">
-        <h3>Supabase</h3>
-        <p>Banco de dados na nuvem. Pedidos ficam salvos permanentemente.</p>
-        <div class="int-status"><div class="status-dot dot-off"></div><span style="color:var(--tx2)">Opcional — para produção</span></div>
-        <div class="steps-list">
-          <div class="step-item"><div class="step-num">1</div><div>Criar conta em <strong>supabase.com</strong></div></div>
-          <div class="step-item"><div class="step-num">2</div><div>Criar projeto e executar o SQL que o Claude vai te fornecer</div></div>
-          <div class="step-item"><div class="step-num">3</div><div>Colar a <strong>URL</strong> e <strong>chave anon</strong> abaixo</div></div>
-        </div>
-        <div style="margin-top:10px;display:flex;flex-direction:column;gap:6px;">
-          <input id="supa-url" placeholder="https://xxx.supabase.co" style="width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:inherit;"/>
-          <input id="supa-key" placeholder="eyJh..." style="width:100%;padding:7px 10px;font-size:12px;border:0.5px solid var(--border);border-radius:var(--radius);background:var(--surface2);color:var(--tx);outline:none;font-family:'DM Mono',monospace;"/>
-          <button class="btn prim" onclick="conectarSupabase()">Conectar banco de dados</button>
-        </div>
+      <div class="card">
+        <h3 style="font-size:13px;font-weight:500;margin-bottom:5px;">17Track</h3>
+        <div style="display:flex;align-items:center;gap:5px;font-size:11px;color:var(--amber);margin-bottom:8px;"><div style="width:6px;height:6px;border-radius:50%;background:var(--amber);"></div>Próxima fase</div>
+        <p style="font-size:12px;color:var(--tx2);line-height:1.6;">Rastreio automático de Correios, Jadlog e Loggi. Alertas de importação, Receita Federal e autenticidade da marca.</p>
       </div>
     </div>
   </div>
@@ -372,9 +306,7 @@ tr.row-alert:hover td{background:#FFF1E0;}
     <div class="field"><label>Nome do cliente</label><input id="f-cliente" placeholder="Nome completo"/></div>
     <div class="grid2">
       <div class="field"><label>Transportadora</label>
-        <select id="f-transp">
-          <option>Correios</option><option>Jadlog</option><option>Loggi</option>
-        </select>
+        <select id="f-transp"><option>Correios</option><option>Jadlog</option><option>Loggi</option></select>
       </div>
       <div class="field"><label>Status</label>
         <select id="f-status" onchange="toggleCampos()">
@@ -408,7 +340,7 @@ tr.row-alert:hover td{background:#FFF1E0;}
       <div style="font-size:11px;color:var(--amber-dk);margin-top:5px;">Ambos ficam ativos até um ser entregue.</div>
     </div>
     <div class="field"><label>Valor do pedido (R$)</label><input id="f-valor" type="number" step="0.01" placeholder="0.00"/></div>
-    <div class="field"><label>Observações (opcional)</label><textarea id="f-obs" placeholder="Anotações internas sobre este pedido..."></textarea></div>
+    <div class="field"><label>Observações (opcional)</label><textarea id="f-obs" placeholder="Anotações internas..."></textarea></div>
     <div class="mfooter">
       <button class="btn" onclick="fecharModal()">Cancelar</button>
       <button class="btn prim" onclick="salvar()">Salvar pedido</button>
@@ -416,78 +348,68 @@ tr.row-alert:hover td{background:#FFF1E0;}
   </div>
 </div>
 
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── CONFIG ────────────────────────────────
-const MESES = ['Jan','Fev','Mar','Abr'];
-const LABEL = {entregue:'Entregue',transito:'Em trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
-const TRACKURL = {Correios:'https://rastreamento.correios.com.br/app/index.php',Jadlog:'https://www.jadlog.com.br/jadlog/rastreamento',Loggi:'https://www.loggi.com/rastreador/'};
-const MOTIVOS_ATENCAO = ['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
-const STATUS_ATENCAO = ['atencao','devolvido','extraviado'];
+// ─── SUPABASE CONFIG ───────────────────────
+const SUPA_URL = 'https://tjpqlwegdkodfblsrpre.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRqcHFsd2VnZGtvZGZibHNycHJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyODgzMDcsImV4cCI6MjA5MTg2NDMwN30.DIVUeKjJVgTazvV5s2fqKcJCTLJf2HpEgjrBWyu-vSo';
+const HEADERS = {'Content-Type':'application/json','apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY};
+
+async function dbGet(){
+  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?select=*&order=criado_em.desc`,{headers:{...HEADERS,'Prefer':'return=representation'}});
+  if(!r.ok)throw new Error('Erro ao buscar pedidos');
+  return r.json();
+}
+async function dbInsert(obj){
+  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos`,{method:'POST',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(obj)});
+  if(!r.ok)throw new Error('Erro ao salvar');
+  const d=await r.json();return d[0];
+}
+async function dbUpdate(id,obj){
+  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'PATCH',headers:{...HEADERS,'Prefer':'return=representation'},body:JSON.stringify(obj)});
+  if(!r.ok)throw new Error('Erro ao atualizar');
+  const d=await r.json();return d[0];
+}
+async function dbDelete(id){
+  const r=await fetch(`${SUPA_URL}/rest/v1/pedidos?id=eq.${id}`,{method:'DELETE',headers:HEADERS});
+  if(!r.ok)throw new Error('Erro ao remover');
+}
 
 // ─── STATE ─────────────────────────────────
-let pedidos = [];
-let nextId = 1;
-let editId = null;
-let mesSel = 'todos';
+const MESES=['Jan','Fev','Mar','Abr'];
+const LABEL={entregue:'Entregue',transito:'Em trânsito',reenviado:'Reenviado',atencao:'Atenção',devolvido:'Devolvido',extraviado:'Extraviado',aguardando:'Aguardando'};
+const STATUS_ATENCAO=['atencao','devolvido','extraviado'];
+const MOTIVOS_ATENCAO=['Retido — Receita Federal','Autenticidade da marca','Importação não autorizada','Devolvido ao remetente','Extraviado / roubado'];
 
-// ─── DADOS DEMO ────────────────────────────
-const NOMES_DEMO = ['Ana Souza','Carlos Lima','Fernanda Costa','Ricardo Nunes','Juliana Melo','Bruno Alves','Patrícia Rocha','Diego Ferreira','Camila Torres','Leandro Pinto','Rafaela Dias','Marcelo Vieira','Tatiane Gomes','André Batista','Simone Carvalho','Fábio Moreira','Larissa Santana','Rodrigo Fonseca','Isabela Neves','Gustavo Ramos'];
-const TRANSPS_DEMO = ['Correios','Correios','Correios','Jadlog','Jadlog','Loggi'];
-const STATUS_DEMO = ['entregue','entregue','entregue','entregue','transito','transito','reenviado','atencao','devolvido','aguardando'];
+let pedidos=[];
+let editId=null;
+let mesSel='todos';
 
-function rnd(a){return a[Math.floor(Math.random()*a.length)];}
-function ri(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
-function gerarCod(t){const p=t==='Correios'?'BR':t==='Jadlog'?'JL':'LG';return p+ri(100000000,999999999)+'BR';}
-
-function gerarDemo(){
-  pedidos=[];
-  const qtd=[82,91,88,71];
-  let num=10001;
-  for(let m=0;m<4;m++){
-    for(let i=0;i<qtd[m];i++){
-      const t=rnd(TRANSPS_DEMO), s=rnd(STATUS_DEMO);
-      const dia=ri(1,28);
-      const data=`2026-${String(m+1).padStart(2,'0')}-${String(dia).padStart(2,'0')}`;
-      const reenviado=s==='reenviado';
-      const temAtc=STATUS_ATENCAO.includes(s);
-      pedidos.push({
-        id:nextId++,
-        pedido:'#'+num++,
-        cliente:rnd(NOMES_DEMO),
-        status:s,transp:t,
-        rastreio1:s==='aguardando'?'':gerarCod(t),
-        rastreio2:reenviado?gerarCod(t):'',
-        motivo:temAtc?rnd(MOTIVOS_ATENCAO):'',
-        data,mes:m,
-        valor:(ri(4990,29900)/100).toFixed(2),
-        obs:''
-      });
-    }
-  }
-  salvarLocal();
+function getMes(data){
+  if(!data)return 0;
+  const m=parseInt(data.split('-')[1])-1;
+  return m>=0&&m<4?m:0;
 }
-
-// ─── LOCAL STORAGE ─────────────────────────
-function salvarLocal(){
-  try{localStorage.setItem('pedidoshq_pedidos',JSON.stringify(pedidos));
-  localStorage.setItem('pedidoshq_nextid',String(nextId));}catch(e){}
-}
-function carregarLocal(){
-  try{
-    const d=localStorage.getItem('pedidoshq_pedidos');
-    const n=localStorage.getItem('pedidoshq_nextid');
-    if(d){pedidos=JSON.parse(d);nextId=parseInt(n)||nextId;return true;}
-  }catch(e){}
-  return false;
-}
-
-// ─── UTILS ─────────────────────────────────
 function fdata(d){if(!d)return'—';const[y,m,dia]=d.split('-');return`${dia}/${m}`;}
 function fval(v){return'R$ '+parseFloat(v||0).toFixed(2).replace('.',',');}
-function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function toast(msg,err){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.background=err?'#A32D2D':'#1A1A18';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+// ─── CARREGAR DADOS ────────────────────────
+async function carregarPedidos(){
+  try{
+    pedidos=await dbGet();
+    renderDash();renderTabs();renderPedidos();
+  }catch(e){
+    toast('Erro ao conectar com o banco de dados.',true);
+  }
+}
 
 // ─── DASHBOARD ─────────────────────────────
 function renderDash(){
@@ -497,7 +419,6 @@ function renderDash(){
   const rei=pedidos.filter(p=>p.status==='reenviado').length;
   const atc=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).length;
   const taxa=tot?Math.round(ent/tot*100):0;
-
   document.getElementById('dash-stats').innerHTML=`
     <div class="stat"><div class="stat-lbl">Total pedidos</div><div class="stat-n c-tx">${tot}</div></div>
     <div class="stat"><div class="stat-lbl">Entregues</div><div class="stat-n c-green">${ent}</div></div>
@@ -506,24 +427,16 @@ function renderDash(){
     <div class="stat"><div class="stat-lbl">Com atenção</div><div class="stat-n c-red">${atc}</div></div>
     <div class="stat"><div class="stat-lbl">Taxa entrega</div><div class="stat-n c-green">${taxa}%</div></div>
   `;
-
   document.getElementById('badge-count').textContent=atc;
-
   const banner=document.getElementById('alert-banner-dash');
   banner.innerHTML=atc>0
     ?`<div class="alert-banner"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg><span><strong>${atc} pedidos</strong> precisam de atenção —</span><button class="btn sm warn" onclick="nav('atencao',null)" style="margin-left:6px">Ver agora</button></div>`
     :'';
-
-  const qtdM=[0,1,2,3].map(m=>pedidos.filter(p=>p.mes===m).length);
+  const qtdM=[0,1,2,3].map(m=>pedidos.filter(p=>getMes(p.data)===m).length);
   const mx=Math.max(...qtdM,1);
   const clrs=['#B5D4F4','#9FE1CB','#FAC775','#F5C4B3'];
-  document.getElementById('barchart').innerHTML=qtdM.map((c,i)=>`
-    <div class="bar-col">
-      <div class="bar-val">${c}</div>
-      <div class="bar" style="height:${Math.round(c/mx*54)+4}px;background:${clrs[i]}"></div>
-    </div>`).join('');
+  document.getElementById('barchart').innerHTML=qtdM.map((c,i)=>`<div class="bar-col"><div class="bar-val">${c}</div><div class="bar" style="height:${Math.round(c/mx*54)+4}px;background:${clrs[i]}"></div></div>`).join('');
   document.getElementById('barlabels').innerHTML=MESES.map(m=>`<div style="flex:1;text-align:center;font-size:10px;color:var(--tx2)">${m}</div>`).join('');
-
   const mc={};
   pedidos.filter(p=>p.motivo).forEach(p=>{mc[p.motivo]=(mc[p.motivo]||0)+1;});
   const mots=Object.entries(mc).sort((a,b)=>b[1]-a[1]);
@@ -531,13 +444,11 @@ function renderDash(){
   document.getElementById('motivo-prog').innerHTML=mots.length
     ?mots.map(([m,c])=>`<div class="prog-row"><div class="prog-lbl" title="${m}">${m}</div><div class="prog-bg"><div class="prog-fill" style="width:${Math.round(c/mx2*100)}%;background:#E24B4A"></div></div><div class="prog-val c-red">${c}</div></div>`).join('')
     :'<div style="font-size:12px;color:var(--tx3)">Nenhum alerta ativo.</div>';
-
   const lista=pedidos.filter(p=>STATUS_ATENCAO.includes(p.status)).slice(0,5);
   document.getElementById('dash-atencao').innerHTML=lista.map(p=>`<tr>
-    <td style="font-weight:500">${p.pedido}</td>
-    <td>${p.cliente}</td>
+    <td style="font-weight:500">${p.pedido}</td><td>${p.cliente}</td>
     <td><span class="alert-pill">${p.motivo||LABEL[p.status]}</span></td>
-    <td><button class="btn sm" onclick="abrirModal(${p.id})">Editar</button></td>
+    <td><button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button></td>
   </tr>`).join('')||`<tr><td colspan="4" class="empty">Nenhum pedido com atenção.</td></tr>`;
 }
 
@@ -555,8 +466,8 @@ function renderPedidos(){
   const fs=document.getElementById('fStatus').value;
   const ft=document.getElementById('fTransp').value;
   let f=pedidos.filter(p=>{
-    const mm=mesSel==='todos'||p.mes===mesSel;
-    const mq=!q||p.pedido.toLowerCase().includes(q)||p.cliente.toLowerCase().includes(q)||p.rastreio1.toLowerCase().includes(q)||p.rastreio2.toLowerCase().includes(q);
+    const mm=mesSel==='todos'||getMes(p.data)===mesSel;
+    const mq=!q||(p.pedido||'').toLowerCase().includes(q)||(p.cliente||'').toLowerCase().includes(q)||(p.rastreio1||'').toLowerCase().includes(q)||(p.rastreio2||'').toLowerCase().includes(q);
     return mm&&mq&&(!fs||p.status===fs)&&(!ft||p.transp===ft);
   });
   const tbody=document.getElementById('pedidos-tbody');
@@ -569,24 +480,23 @@ function renderPedidos(){
       ?`<div class="track-block"><div class="track-lbl">Cód 2 (ativo)</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`
       :`<span class="mono">${p.rastreio1||'—'}</span>`;
     const statusHtml=isAtc(p)
-      ?`<div><span class="badge b-atencao">${LABEL[p.status]}</span><div style="font-size:10px;color:var(--red);margin-top:1px;white-space:normal;overflow:visible;">${p.motivo}</div></div>`
+      ?`<div><span class="badge b-atencao">${LABEL[p.status]}</span><div style="font-size:10px;color:var(--red);margin-top:1px;white-space:normal;">${p.motivo}</div></div>`
       :`<span class="badge b-${p.status}">${LABEL[p.status]}</span>`;
     return `<tr class="${isAtc(p)?'row-alert':''}">
       <td style="font-weight:500">${p.pedido}</td>
       <td>${p.cliente}</td>
       <td>${statusHtml}</td>
-      <td style="color:var(--tx2)">${p.transp}</td>
+      <td style="color:var(--tx2)">${p.transp||'—'}</td>
       <td>${rastreioHtml}</td>
       <td style="color:var(--tx2)">${fdata(p.data)}</td>
       <td style="color:var(--tx2)">${fval(p.valor)}</td>
-      <td><div style="display:flex;gap:3px"><button class="btn sm" onclick="abrirModal(${p.id})">Editar</button><button class="btn sm danger" onclick="excluir(${p.id})">×</button></div></td>
+      <td><div style="display:flex;gap:3px"><button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button><button class="btn sm danger" onclick="excluir('${p.id}')">×</button></div></td>
     </tr>`;
   }).join('');
   if(f.length>100){
-    const tr=document.createElement('tr');
-    const td=document.createElement('td');
+    const tr=document.createElement('tr');const td=document.createElement('td');
     td.colSpan=8;td.style.cssText='text-align:center;padding:10px;color:var(--tx3);font-size:12px;';
-    td.textContent=`...e mais ${f.length-100} pedidos. Use os filtros para refinar.`;
+    td.textContent=`...e mais ${f.length-100} pedidos. Use os filtros.`;
     tr.appendChild(td);tbody.appendChild(tr);
   }
 }
@@ -599,9 +509,7 @@ function renderAtencao(){
   const tbody=document.getElementById('atencao-tbody');
   const empty=document.getElementById('atencao-empty');
   const banner=document.getElementById('atencao-banner');
-  banner.innerHTML=f.length
-    ?`<div class="alert-banner" style="margin-bottom:.9rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação</div>`
-    :'';
+  banner.innerHTML=f.length?`<div class="alert-banner" style="margin-bottom:.9rem"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2L14 13H2L8 2z"/><path d="M8 7v2.5M8 11v.5"/></svg>${f.length} pedido${f.length>1?'s':''} precisam de ação</div>`:'';
   if(!f.length){tbody.innerHTML='';empty.style.display='block';return;}
   empty.style.display='none';
   tbody.innerHTML=f.map(p=>`<tr class="row-alert">
@@ -613,8 +521,8 @@ function renderAtencao(){
       :`<span class="mono">${p.rastreio1||'—'}</span>`}</td>
     <td style="color:var(--tx2)">${fdata(p.data)}</td>
     <td><div style="display:flex;gap:3px;flex-wrap:wrap">
-      <button class="btn sm" onclick="abrirModal(${p.id})">Editar</button>
-      <button class="btn sm warn" onclick="marcarReenviado(${p.id})">Reenviar</button>
+      <button class="btn sm" onclick="abrirModal('${p.id}')">Editar</button>
+      <button class="btn sm warn" onclick="marcarReenviado('${p.id}')">Reenviar</button>
     </div></td>
   </tr>`).join('');
 }
@@ -633,31 +541,37 @@ function renderReenviados(){
     <td><div class="track-old">${p.rastreio1||'—'}</div></td>
     <td>${p.rastreio2?`<div class="track-active mono">${p.rastreio2}</div>`:'<span style="color:var(--tx3);font-size:11px">Aguardando cód 2</span>'}</td>
     <td style="color:var(--tx2)">${fdata(p.data)}</td>
-    <td><button class="btn sm prim" onclick="marcarEntregue(${p.id})">Marcar entregue</button></td>
+    <td><button class="btn sm prim" onclick="marcarEntregue('${p.id}')">Marcar entregue</button></td>
   </tr>`).join('');
 }
 
 // ─── AÇÕES ─────────────────────────────────
-function marcarReenviado(id){
+async function marcarReenviado(id){
   const novo=prompt('Cole o novo código de rastreio (Cód 2):');
   if(!novo||!novo.trim())return;
-  const p=pedidos.find(x=>x.id===id);
-  if(!p)return;
-  p.rastreio2=novo.trim();
-  p.status='reenviado';
-  salvarLocal();renderAtencao();renderDash();toast('Pedido marcado como reenviado.');
+  try{
+    const updated=await dbUpdate(id,{rastreio2:novo.trim(),status:'reenviado'});
+    const i=pedidos.findIndex(p=>p.id===id);
+    if(i>=0)pedidos[i]=updated;
+    renderAtencao();renderDash();toast('Pedido marcado como reenviado.');
+  }catch(e){toast('Erro ao atualizar.',true);}
 }
-function marcarEntregue(id){
+async function marcarEntregue(id){
   if(!confirm('Confirmar entrega deste pedido?'))return;
-  const p=pedidos.find(x=>x.id===id);
-  if(!p)return;
-  p.status='entregue';
-  salvarLocal();renderReenviados();renderDash();toast('Pedido marcado como entregue.');
+  try{
+    const updated=await dbUpdate(id,{status:'entregue'});
+    const i=pedidos.findIndex(p=>p.id===id);
+    if(i>=0)pedidos[i]=updated;
+    renderReenviados();renderDash();toast('Pedido marcado como entregue.');
+  }catch(e){toast('Erro ao atualizar.',true);}
 }
-function excluir(id){
+async function excluir(id){
   if(!confirm('Remover este pedido permanentemente?'))return;
-  pedidos=pedidos.filter(p=>p.id!==id);
-  salvarLocal();renderPedidos();renderDash();toast('Pedido removido.');
+  try{
+    await dbDelete(id);
+    pedidos=pedidos.filter(p=>p.id!==id);
+    renderPedidos();renderDash();toast('Pedido removido.');
+  }catch(e){toast('Erro ao remover.',true);}
 }
 
 // ─── MODAL ─────────────────────────────────
@@ -671,10 +585,10 @@ function abrirModal(id){
   document.getElementById('modal-titulo').textContent=id?'Editar pedido':'Novo pedido';
   if(id){
     const p=pedidos.find(x=>x.id===id);
-    document.getElementById('f-num').value=p.pedido;
-    document.getElementById('f-cliente').value=p.cliente;
-    document.getElementById('f-transp').value=p.transp;
-    document.getElementById('f-status').value=p.status;
+    document.getElementById('f-num').value=p.pedido||'';
+    document.getElementById('f-cliente').value=p.cliente||'';
+    document.getElementById('f-transp').value=p.transp||'Correios';
+    document.getElementById('f-status').value=p.status||'aguardando';
     document.getElementById('f-rastreio1').value=p.rastreio1||'';
     document.getElementById('f-rastreio2').value=p.rastreio2||'';
     document.getElementById('f-motivo').value=p.motivo||MOTIVOS_ATENCAO[0];
@@ -693,14 +607,13 @@ function abrirModal(id){
 function fecharModal(){document.getElementById('modalBg').classList.remove('open');}
 document.getElementById('modalBg').addEventListener('click',function(e){if(e.target===this)fecharModal();});
 
-function salvar(){
+async function salvar(){
   const num=document.getElementById('f-num').value.trim();
   const cliente=document.getElementById('f-cliente').value.trim();
   if(!num||!cliente){alert('Preencha o número do pedido e o nome do cliente.');return;}
   const s=document.getElementById('f-status').value;
   const temAtc=STATUS_ATENCAO.includes(s);
   const dataVal=document.getElementById('f-data').value;
-  const mesIdx=dataVal?parseInt(dataVal.split('-')[1])-1:3;
   const obj={
     pedido:num,cliente,
     transp:document.getElementById('f-transp').value,
@@ -708,43 +621,25 @@ function salvar(){
     rastreio1:document.getElementById('f-rastreio1').value.trim(),
     rastreio2:document.getElementById('f-rastreio2').value.trim(),
     motivo:temAtc?document.getElementById('f-motivo').value:'',
-    data:dataVal,
-    valor:document.getElementById('f-valor').value||'0',
-    obs:document.getElementById('f-obs').value.trim(),
-    mes:mesIdx>=0&&mesIdx<4?mesIdx:3
+    data:dataVal||null,
+    valor:parseFloat(document.getElementById('f-valor').value)||0,
+    mes:getMes(dataVal),
+    obs:document.getElementById('f-obs').value.trim()
   };
-  if(editId){
-    const i=pedidos.findIndex(p=>p.id===editId);
-    pedidos[i]={...pedidos[i],...obj};
-  }else{
-    pedidos.unshift({id:nextId++,...obj});
-  }
-  salvarLocal();fecharModal();
-  renderPedidos();renderDash();renderAtencao();renderReenviados();
-  toast(editId?'Pedido atualizado.':'Pedido cadastrado.');
-}
-
-// ─── INTEGRAÇÕES (placeholders) ────────────
-function importarShopify(){
-  const domain=document.getElementById('shopify-domain').value.trim();
-  const token=document.getElementById('shopify-token').value.trim();
-  if(!domain||!token){alert('Preencha o domínio e o token da Shopify.');return;}
-  const msg=document.getElementById('shopify-msg');
-  msg.style.display='block';
-  msg.textContent='Conectando com a Shopify... (integração será ativada na próxima fase)';
-}
-function ativar17track(){
-  const key=document.getElementById('track-key').value.trim();
-  if(!key){alert('Cole a chave do 17Track.');return;}
-  const msg=document.getElementById('track-msg');
-  msg.style.display='block';
-  msg.textContent='Chave salva. Rastreio automático será ativado na próxima fase.';
-}
-function conectarSupabase(){
-  const url=document.getElementById('supa-url').value.trim();
-  const key=document.getElementById('supa-key').value.trim();
-  if(!url||!key){alert('Preencha a URL e a chave do Supabase.');return;}
-  toast('Configuração do Supabase salva.');
+  try{
+    if(editId){
+      const updated=await dbUpdate(editId,obj);
+      const i=pedidos.findIndex(p=>p.id===editId);
+      if(i>=0)pedidos[i]=updated;
+      toast('Pedido atualizado.');
+    }else{
+      const novo=await dbInsert(obj);
+      pedidos.unshift(novo);
+      toast('Pedido cadastrado.');
+    }
+    fecharModal();
+    renderPedidos();renderDash();renderAtencao();renderReenviados();
+  }catch(e){toast('Erro ao salvar pedido.',true);}
 }
 
 // ─── NAVEGAÇÃO ─────────────────────────────
@@ -754,20 +649,15 @@ function nav(page,el){
   const map={dash:'pg-dash',pedidos:'pg-pedidos',atencao:'pg-atencao',reenviados:'pg-reenviados',integracao:'pg-integracao'};
   const pg=document.getElementById(map[page]);
   if(pg)pg.classList.add('active');
-  if(el)el.classList.add('active');
-  else{
-    const sbMap={dash:0,pedidos:1,atencao:2,reenviados:3,integracao:4};
-    const items=document.querySelectorAll('.sb-item');
-    if(sbMap[page]!==undefined&&items[sbMap[page]])items[sbMap[page]].classList.add('active');
-  }
+  if(el){el.classList.add('active');}
+  else{const sbMap={dash:0,pedidos:1,atencao:2,reenviados:3,integracao:4};const items=document.querySelectorAll('.sb-item');if(sbMap[page]!==undefined&&items[sbMap[page]])items[sbMap[page]].classList.add('active');}
   if(page==='pedidos'){renderTabs();renderPedidos();}
   if(page==='atencao')renderAtencao();
   if(page==='reenviados')renderReenviados();
 }
 
 // ─── INIT ──────────────────────────────────
-if(!carregarLocal())gerarDemo();
-renderDash();renderTabs();renderPedidos();
+carregarPedidos();
 </script>
 </body>
 </html>
