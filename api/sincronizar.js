@@ -7,21 +7,18 @@ export default async function handler(req, res) {
   const SH = { 'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY };
 
   try {
-    // Busca todos pedidos não entregues com rastreio
     const r = await fetch(`${SUPA_URL}/rest/v1/pedidos?select=id,rastreio1,rastreio2,status&status=neq.entregue&limit=1000`, { headers: SH });
     const pedidos = await r.json();
 
-    // Monta lista de rastreios únicos
     const rastreioMap = {};
     for (const p of pedidos) {
-      if (p.rastreio1?.trim()) rastreioMap[p.rastreio1.trim()] = p;
-      if (p.rastreio2?.trim()) rastreioMap[p.rastreio2.trim()] = p;
+      if (p.rastreio1 && p.rastreio1.trim()) rastreioMap[p.rastreio1.trim()] = p;
+      if (p.rastreio2 && p.rastreio2.trim()) rastreioMap[p.rastreio2.trim()] = p;
     }
     const codigos = Object.keys(rastreioMap);
-    if (!codigos.length) { res.status(200).json({ ok: true, msg: 'Nenhum rastreio para sincronizar' }); return; }
+    if (!codigos.length) { res.status(200).json({ ok: true, msg: 'Nenhum rastreio', total_pedidos: pedidos.length }); return; }
 
     let atualizados = 0;
-    // Processa em lotes de 40
     for (let i = 0; i < codigos.length; i += 40) {
       const batch = codigos.slice(i, i + 40).map(n => ({ number: n }));
       const trackResp = await fetch('https://api.17track.net/track/v2.2/gettrackinfo', {
@@ -47,7 +44,7 @@ export default async function handler(req, res) {
         } else if (['InTransit','PickedUp','InfoReceived','Received'].includes(stage)) {
           novoStatus = 'transito';
         } else if (['Undelivered','Exception','Alert','NotDelivered'].includes(stage)) {
-          if (lastEvent.includes('receita') || lastEvent.includes('aduaneiro') || lastEvent.includes('alfand')) {
+          if (lastEvent.includes('receita') || lastEvent.includes('alfand') || lastEvent.includes('aduanei')) {
             novoStatus = 'atencao'; motivo = 'Retido — Receita Federal';
           } else if (lastEvent.includes('autenticidade') || lastEvent.includes('marca')) {
             novoStatus = 'atencao'; motivo = 'Autenticidade da marca';
@@ -65,7 +62,6 @@ export default async function handler(req, res) {
         }
 
         if (!novoStatus) continue;
-
         const prioridade = { aguardando: 0, transito: 1, reenviado: 2, atencao: 3, devolvido: 3, extraviado: 3, entregue: 4 };
         if ((prioridade[novoStatus] ?? 0) >= (prioridade[pedido.status] ?? 0)) {
           const updateObj = { status: novoStatus };
@@ -77,8 +73,7 @@ export default async function handler(req, res) {
         }
       }
     }
-
-    res.status(200).json({ ok: true, atualizados, total: codigos.length });
+    res.status(200).json({ ok: true, atualizados, total_rastreios: codigos.length });
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
