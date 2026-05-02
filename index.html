@@ -51,7 +51,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;background:var(--
 .sb-uemail{font-size:10px;color:var(--tx3);}
 
 /* PAGES */
-.page{display:none;}.page.active{display:block;}
+.page{display:none !important;}.page.active{display:block !important;}
 
 /* TOPBAR */
 .topbar{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px;}
@@ -278,7 +278,7 @@ tr.row-alert:hover td{background:#FEE2E2;}
 <main class="main">
 
 <!-- DASHBOARD -->
-<div class="page active" id="pg-dash">
+<div class="page active" id="pg-dash" style="display:block">
   <div class="topbar">
     <div class="tb-left">
       <div class="page-label">Visão Geral</div>
@@ -646,7 +646,7 @@ const MOTIVOS=['Retido - Receita Federal','Autenticidade da marca','Importação
 
 let pedidos=[],editId=null,mesSel='todos',paginaAtual=0,filtroStatusDash=null;
 
-function getMes(d){if(!d)return null;const s=(d||'').toString().substring(0,10);const m=parseInt(s.split('-')[1])-1;return(m>=0&&m<=11)?m:null;}
+function getMes(d){if(!d)return 0;const m=parseInt(d.split('-')[1])-1;return m>=0?m:0;}
 function fdata(d){if(!d)return'—';const[y,m,dia]=d.split('-');return`${dia}/${m}/${y.slice(2)}`;}
 function fval(v){return'R$ '+parseFloat(v||0).toFixed(2).replace('.',',');}
 function toast(msg,err){const t=document.getElementById('toast');t.textContent=msg;t.style.background=err?'#DC2626':'#0F172A';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
@@ -661,10 +661,9 @@ function filtrarPorPeriodo(lista){
   const{start,end}=getPeriodo();
   if(!start&&!end)return lista;
   return lista.filter(p=>{
-    const dataRef=p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null);
-    if(!dataRef)return true;
-    if(start&&dataRef<start)return false;
-    if(end&&dataRef>end)return false;
+    if(!p.data)return false;
+    if(start&&p.data<start)return false;
+    if(end&&p.data>end)return false;
     return true;
   });
 }
@@ -749,8 +748,8 @@ function renderDash(){
   `;
 
   // Bar chart por mês
-  const mesesUniq=[...new Set(pf.map(p=>{const dr=p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null);return getMes(dr);}))].filter(m=>m!==null).sort((a,b)=>a-b);
-  const qtdM=mesesUniq.map(m=>pf.filter(p=>getMes(p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null))===m).length);
+  const mesesUniq=[...new Set(pf.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
+  const qtdM=mesesUniq.map(m=>pf.filter(p=>getMes(p.data)===m).length);
   const mx=Math.max(...qtdM,1);
   const cores=['#3B82F6','#06B6D4','#8B5CF6','#EC4899','#F59E0B','#10B981','#EF4444','#64748B','#F97316','#14B8A6','#6366F1','#84CC16'];
   document.getElementById('barchart').innerHTML=mesesUniq.map((m,i)=>`
@@ -811,7 +810,7 @@ function irParaPedidosFiltrado(status){
 }
 
 function renderTabs(){
-  const mesesUniq=[...new Set(pedidos.map(p=>{const dr=p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null);return getMes(dr);}))].filter(m=>m!==null).sort((a,b)=>a-b);
+  const mesesUniq=[...new Set(pedidos.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
   document.getElementById('month-tabs').innerHTML=
     `<div class="tab ${mesSel==='todos'?'active':''}" onclick="setMes('todos')">Todos</div>`+
     mesesUniq.map(m=>`<div class="tab ${mesSel===m?'active':''}" onclick="setMes(${m})">${MESES[m]}</div>`).join('');
@@ -823,8 +822,7 @@ function renderPedidos(){
   const fs=document.getElementById('fStatus').value;
   const ft=document.getElementById('fTransp').value;
   let f=pedidos.filter(p=>{
-    const dataRef=p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null);
-    const mm=mesSel==='todos'||(getMes(dataRef)===mesSel);
+    const mm=mesSel==='todos'||getMes(p.data)===mesSel;
     const mq=!q||(p.pedido||'').toLowerCase().includes(q)||(p.cliente||'').toLowerCase().includes(q)||(p.rastreio1||'').toLowerCase().includes(q)||(p.rastreio2||'').toLowerCase().includes(q);
     return mm&&mq&&(!fs||p.status===fs)&&(!ft||p.transp===ft);
   });
@@ -837,11 +835,11 @@ function renderPedidos(){
   const slice=f.slice(paginaAtual*pageSize,(paginaAtual+1)*pageSize);
   tbody.innerHTML=slice.map(p=>{
     const rh=p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2 — ativo</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`;
+    const sh=isAtc(p)?`<div><span class="pill p-atencao">${LABEL[p.status]||p.status}${diasLabel}</span><div style="font-size:10.5px;color:var(--red);margin-top:2px;white-space:normal;font-weight:500">${p.motivo||''}</div></div>`:`<span class="pill p-${p.status}">${LABEL[p.status]||p.status}${diasLabel}</span>`;
     const hoje=new Date();
     const dataP=p.data?new Date(p.data):null;
     const diasTransito=dataP&&p.status!=='entregue'?Math.floor((hoje-dataP)/(1000*60*60*24)):null;
     const diasLabel=diasTransito!==null?` (${diasTransito}d)`:'';
-    const sh=isAtc(p)?`<div><span class="pill p-atencao">${LABEL[p.status]||p.status}${diasLabel}</span><div style="font-size:10.5px;color:var(--red);margin-top:2px;white-space:normal;font-weight:500">${p.motivo||''}</div></div>`:`<span class="pill p-${p.status}">${LABEL[p.status]||p.status}${diasLabel}</span>`;
     const ult=p.atualizado_em?fdata(p.atualizado_em.split('T')[0]):'—';
     return `<tr class="${isAtc(p)?'row-alert':''}">
       <td style="font-weight:600">${p.pedido}</td>
@@ -954,10 +952,10 @@ function renderRelatorio(){
   `;
 
   // Taxa por mês
-  const mesesUniq=[...new Set(pf.map(p=>{const dr=p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null);return getMes(dr);}))].filter(m=>m!==null).sort((a,b)=>a-b);
+  const mesesUniq=[...new Set(pf.map(p=>getMes(p.data)))].sort((a,b)=>a-b);
   document.getElementById('rel-taxa-mes').innerHTML=mesesUniq.map(m=>{
-    const total=pf.filter(p=>getMes(p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null))===m).length;
-    const entregues=pf.filter(p=>getMes(p.data||(p.criado_em?(p.criado_em||'').toString().substring(0,10):null))===m&&p.status==='entregue').length;
+    const total=pf.filter(p=>getMes(p.data)===m).length;
+    const entregues=pf.filter(p=>getMes(p.data)===m&&p.status==='entregue').length;
     const pct=total?Math.round(entregues/total*100):0;
     return`<div class="prog-row">
       <div class="prog-lbl">${MESES[m]} <span style="color:var(--tx3);font-weight:400">(${total})</span></div>
@@ -1062,10 +1060,10 @@ async function salvar(){
 }
 
 function nav(page,el){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active');p.style.display='none';});
   document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
   const map={dash:'pg-dash',pedidos:'pg-pedidos',atencao:'pg-atencao',reenviados:'pg-reenviados',taxados:'pg-taxados',relatorio:'pg-relatorio',integracao:'pg-integracao'};
-  const pg=document.getElementById(map[page]);if(pg)pg.classList.add('active');
+  const pg=document.getElementById(map[page]);if(pg){pg.classList.add('active');pg.style.display='block';}
   if(el){el.classList.add('active');}else{
     const sbMap={dash:0,pedidos:1,atencao:2,reenviados:3,taxados:4,relatorio:5,integracao:6};
     const items=document.querySelectorAll('.sb-item');
