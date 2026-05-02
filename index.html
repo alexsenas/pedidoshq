@@ -837,11 +837,11 @@ function renderPedidos(){
   const slice=f.slice(paginaAtual*pageSize,(paginaAtual+1)*pageSize);
   tbody.innerHTML=slice.map(p=>{
     const rh=p.rastreio2?`<div class="track-block"><div class="track-lbl">Cód 2 — ativo</div><div class="track-active">${p.rastreio2}</div><div class="track-lbl">Cód 1</div><div class="track-old">${p.rastreio1}</div></div>`:`<span class="mono">${p.rastreio1||'—'}</span>`;
-    const sh=isAtc(p)?`<div><span class="pill p-atencao">${LABEL[p.status]||p.status}${diasLabel}</span><div style="font-size:10.5px;color:var(--red);margin-top:2px;white-space:normal;font-weight:500">${p.motivo||''}</div></div>`:`<span class="pill p-${p.status}">${LABEL[p.status]||p.status}${diasLabel}</span>`;
     const hoje=new Date();
     const dataP=p.data?new Date(p.data):null;
     const diasTransito=dataP&&p.status!=='entregue'?Math.floor((hoje-dataP)/(1000*60*60*24)):null;
     const diasLabel=diasTransito!==null?` (${diasTransito}d)`:'';
+    const sh=isAtc(p)?`<div><span class="pill p-atencao">${LABEL[p.status]||p.status}${diasLabel}</span><div style="font-size:10.5px;color:var(--red);margin-top:2px;white-space:normal;font-weight:500">${p.motivo||''}</div></div>`:`<span class="pill p-${p.status}">${LABEL[p.status]||p.status}${diasLabel}</span>`;
     const ult=p.atualizado_em?fdata(p.atualizado_em.split('T')[0]):'—';
     return `<tr class="${isAtc(p)?'row-alert':''}">
       <td style="font-weight:600">${p.pedido}</td>
